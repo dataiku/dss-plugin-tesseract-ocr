@@ -1,0 +1,15 @@
+{
+  "actions": [
+    {
+      "ts": 1584028020122,
+      "action": "INSTALL",
+      "user": "admin"
+    }
+  ],
+  "gitState": {
+    "enabled": true,
+    "repository": "git@github.com:dataiku/dss-plugin-tesseract-ocr.git",
+    "path": "",
+    "checkout": "refs/heads/feature/split-recipes"
+  }
+}
