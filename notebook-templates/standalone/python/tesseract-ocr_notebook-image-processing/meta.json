@@ -1,0 +1,4 @@
+{
+    "label": "Image processing for text extraction",
+    "shortDesc":"Use this notebook to first explore the effect of different type of image processing and then process all images for later text extraction"
+}

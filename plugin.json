@@ -1,0 +1,22 @@
+  
+{
+    "id": "tesseract-ocr",
+
+    "version": "1.0.1",
+
+    "meta": {
+        "label": "Tesseract ocr",
+
+        "description": "Plugin for optical character recognition (OCR) in python using the tesseract engine.",
+
+        "author": "Dataiku (Stanislas GUINEL)",
+
+        "icon": "icon-fire",
+
+        "tags": ["NLP", "Images"],
+
+        "url": "https://www.dataiku.com/product/plugins/tesseract-ocr.html",
+
+        "licenseInfo": "Apache Software License"
+    }
+}
