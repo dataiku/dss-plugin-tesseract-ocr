@@ -49,7 +49,7 @@ def image_processing(img_bytes, params):
 from dataiku.customrecipe import get_plugin_config
 
 def simple(x):
-    print(type(get_plugin_config))
+    print(type(get_plugin_config()))
     return 99
 
 def text_extraction(img_bytes, params):
