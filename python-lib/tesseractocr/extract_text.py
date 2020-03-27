@@ -50,7 +50,7 @@ from dataiku.customrecipe import get_plugin_config
 
 def simple(x):
     print("hello")
-    return x*3
+    return 99
 
 def text_extraction(img_bytes, params):
     img = Image.open(BytesIO(img_bytes))
