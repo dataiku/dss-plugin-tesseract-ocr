@@ -8,6 +8,7 @@ from deskew import determine_skew
 import math
 
 
+
 def rotate(image: np.ndarray, angle: float) -> np.ndarray:
     old_width, old_height = image.shape[:2]
     angle_radian = math.radians(angle)
@@ -45,7 +46,10 @@ def image_processing(img_bytes, params):
 
     return img_bytes
 
+from dataiku.customrecipe import get_plugin_config
+
 def simple(x):
+    print("hello")
     return x*2
 
 def text_extraction(img_bytes, params):
