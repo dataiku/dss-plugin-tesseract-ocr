@@ -45,6 +45,8 @@ def image_processing(img_bytes, params):
 
     return img_bytes
 
+def simple(x):
+    return x*2
 
 def text_extraction(img_bytes, params):
     img = Image.open(BytesIO(img_bytes))
