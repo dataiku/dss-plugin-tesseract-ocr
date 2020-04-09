@@ -32,7 +32,7 @@ for sample_file in input_filenames:
 
             output_folder.upload_data("{}_pdf_page_{:05d}.jpg".format(prefix, i+1), img_bytes)
 
-    elif suffix in ["jpg", "png", "jpeg"]:
+    elif suffix in ["jpg", "png", "jpeg", "tiff"]:
 
         with input_folder.get_download_stream(sample_file) as stream:
             data = stream.readlines()
