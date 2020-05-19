@@ -8,8 +8,10 @@ from deskew import determine_skew
 import math
 
 
-
 def rotate(image: np.ndarray, angle: float) -> np.ndarray:
+    """
+    rotate a numpy array image of a specified angle
+    """
     old_width, old_height = image.shape[:2]
     angle_radian = math.radians(angle)
     width = abs(np.sin(angle_radian) * old_height) + abs(np.cos(angle_radian) * old_width)
@@ -22,7 +24,11 @@ def rotate(image: np.ndarray, angle: float) -> np.ndarray:
     return cv2.warpAffine(image, rot_mat, (int(round(height)), int(round(width))))
 
 
-def image_processing(img_bytes, params):
+def clean_image(img_bytes, params):
+    """
+    clean bytes image depending on some parameters
+    (not actually use in the plugin, processing is done by users in the notebook)
+    """
     img = Image.open(BytesIO(img_bytes))
     img = np.array(img)
 
@@ -46,13 +52,11 @@ def image_processing(img_bytes, params):
 
     return img_bytes
 
-from dataiku.customrecipe import get_plugin_config
-
-def simple(x):
-    print(type(get_plugin_config()))
-    return 99
 
 def text_extraction(img_bytes, params):
+    """
+    extract text from bytes images using pytesseract (with some parameters)
+    """
     img = Image.open(BytesIO(img_bytes))
     img = np.array(img)
 

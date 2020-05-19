@@ -2,7 +2,7 @@
     "meta": {
         "label": "OCR - text extraction from images (to dataset)",
         "description": "Extract text from JPG images into a dataset of filename and text",
-        "icon": "icon-camera"
+        "icon": "icon-file-text-alt"
     },
 
     "kind": "PYTHON",
