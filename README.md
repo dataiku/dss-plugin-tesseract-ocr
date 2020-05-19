@@ -19,26 +19,26 @@ deskew>=0.10.0
 ```
 
 Go to notebook (G+N) and create a new python notebook. Select the template `Image processing for text extraction` and select as code env the one you created manually.
+
 ![](resource/img-doc/doc-notebook-form.png)
 
 Then, you can use the notebook to explore different type of image processing (use the pre-defined functions or write your owns). You need to enter the input folder id manually in the notebook.
 
 In the notebook, you can visualize the effect of image processing functions using the function `display_images_before_after` defined in the notebook (display image before and after processing):
+
 ![](resource/img-doc/doc-notebook-image-viz.png)
 
 You can also look at the extracted text before and after image processing using the function `display_images_before_after` defined in the notebook:
+
 ![](resource/img-doc/doc-notebook-extracted-text-viz.png)
 
-Once you are done exploring, you can convert the notebook into a recipe. 
+When you are done exploring different type of image processing, you can convert this notebook into a code recipe (+ CREATE RECIPE button) and choose the input folder and the output folder (not datasets).
 
-When you are done exploring different type of image processing, you can convert this notebook into a code recipe (+ CREATE RECIPE button) and choose the input folder and the output dataset.
-
-Once in the code recipe, you need to copy the output folder id into the `output_folder_id` variable above and delete the last two lines that were automatically added to the code.
+Once in the code recipe, you need to copy the output folder id into the `output_folder_id` variable above and delete the last two lines that were automatically added to the code. More detailed instructions are written in the notebook.
 
 You also have to change the code env of the code recipe (in the advanced tab) for the newly created code env that has the same packages as the plugin code env.
-![](resource/img-doc/doc-notebook-code-env-selection.png)
 
-You must paste the output folder id found at the bottom of the code recipe into the output_folder_id variable.
+![](resource/img-doc/doc-notebook-code-env-selection.png)
 
 
 ## Requirements
