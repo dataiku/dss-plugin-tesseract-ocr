@@ -1,6 +1,6 @@
 {
     "meta": {
-        "label": "OCR - text extraction from images (to dataset)",
+        "label": "OCR - Text extraction from images",
         "description": "Extract text from JPG images into a dataset of filename and text",
         "icon": "icon-file-text-alt"
     },

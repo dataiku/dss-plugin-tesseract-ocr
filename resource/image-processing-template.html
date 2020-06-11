@@ -1,0 +1,35 @@
+<div ng-controller="ImageProcessingController" style="margin: 10px 0px;">
+    <label for="functions-definition">Image processing functions</label>
+    <textarea ui-codemirror="editorOptions" id="functions-definition" ng-model="config.functions_definition" ng-init="config.functions_definition= 
+    '# Define here the different image processing python functions
+# Don\'t forget to import needed packages (that are in the plugin code env)
+# These functions have an image as input and output 
+
+# for example
+import cv2
+
+def blurring(image):
+    return cv2.medianBlur(image,5)
+
+def thresholding(image):
+    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    '">
+    </textarea>
+    
+    <label for="pipeline-definition">Processing pipeline function</label>
+    <textarea ui-codemirror="editorOptions" id="pipeline-definition" ng-model="config.pipeline_definition" ng-init="config.pipeline_definition=
+    '# Fill-in complete_processing with functions defined above
+
+def complete_processing(img):
+    # This function will be executed on all images in the input folder
+
+    # add the functions you defined above here
+
+    # for example
+    img = blurring(img)
+    img = thresholding(img)
+
+    return img
+    '">
+</textarea>
+</div>

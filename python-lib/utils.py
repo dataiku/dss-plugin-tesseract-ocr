@@ -20,6 +20,17 @@ def get_input_output(input_type='dataset', output_type='dataset'):
     return input_obj, output_obj
 
 
+def image_processing_parameters(recipe_config):
+    def _p(param_name, default=None):
+        return recipe_config.get(param_name, default)
+
+    params = {}
+    params['functions_definition'] = _p('functions_definition', default=None)
+    params['pipeline_definition'] = _p('pipeline_definition', default=None)
+
+    return params
+
+
 def text_extraction_parameters(recipe_config):
     def _p(param_name, default=None):
         return recipe_config.get(param_name, default)

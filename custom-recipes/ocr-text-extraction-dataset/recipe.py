@@ -23,7 +23,7 @@ for i, sample_file in enumerate(input_filenames):
         img_bytes = stream.read()
 
     img_text = text_extraction(img_bytes, params)
-    logger.info("{} - Extracted text from {}/{} images".format("OCR", i+1, total_images))
+    logger.info("OCR - Extracted text from {}/{} images".format(i+1, total_images))
 
     df = df.append({'file': sample_file.split('.')[0], 'text': img_text}, ignore_index=True)
 

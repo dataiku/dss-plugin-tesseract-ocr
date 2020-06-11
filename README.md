@@ -1,24 +1,15 @@
 # dss-plugin-tesseract-ocr
 Plugin for optical character recognition (OCR) in python using the tesseract engine
 
-The plugin has three components (two recipes and a notebook template):
-- image-conversion recipe: convert all types of images into jpg images and split multi-page PDF documents into multiple jpg images. It also convert images to grayscale.
-- ocr-text-extraction-dataset recipe:: extract text from images using tesseract and output a dataset with a filename column and a text column. This recipe has parameters to recombine formely split multi-page PDF into a single text, to specify the language used in tesseract, and to remove special charaters from the extracted text. It takes as input a folder of JPG images (the output of the image-conversion recipe or of the notebook).
-- image processing notebook: notebook to explore different types of image processing to improve (or not) text extraction from tesseract. Then, the notebook acts as a recipe to process images and output a folder of processed images that can be used by the ocr-text-extraction-dataset recipe.
+The plugin has four components (three recipes and a notebook template):
+- Image Conversion recipe: convert all types of images into jpg images and split multi-page PDF documents into multiple jpg images. It also convert images to grayscale.
+- Text Extraction recipe:: extract text from images using tesseract and output a dataset with a filename column and a text column. This recipe has parameters to recombine multi-page PDF (that were split into multiple images in the Image Conversion recipe) into a single text, to specify the language used in tesseract, and to remove special charaters from the extracted text. It takes as input a folder of JPG images (ideally the output of the Image Conversion recipe or of the Image Processing recipe).
+- Image Processing notebook: notebook to explore different types of image processing to improve (or not) text extraction from tesseract. Then, the functions that were tested in the notebook can be used in the Image Processing recipe.
+- Image Processing recipe: recipe to process images using functions defined by the user in the python editor area of the recipe form.
 
 ## Instructions to use the notebook template
  
-In order to use notebook template as code recipe after exploring different image processing, you (or the admin) need to create a code env with the same requirements as the plugin code env (because notebooks converted into recipe can't use plugin code envs). These requirements can be found in the `requirements.txt` file of the plugin:
-```
-pdf2image==1.6.0
-pytesseract==0.2.7
-Pillow==7.0.0
-matplotlib==3.2.0
-opencv-python>=3.1.0
-deskew>=0.10.0
-```
-
-Go to notebook (G+N) and create a new python notebook. Select the template `Image processing for text extraction` and select as code env the one you created manually.
+Go to notebook (G+N) and create a new python notebook. Select the template `Image processing for text extraction` and then check that the plugin code env is selected (you can set it in the tab Kernel > Change kernel).
 
 ![](resource/img-doc/doc-notebook-form.png)
 
@@ -32,13 +23,9 @@ You can also look at the extracted text before and after image processing using 
 
 ![](resource/img-doc/doc-notebook-extracted-text-viz.png)
 
-When you are done exploring different type of image processing, you can convert this notebook into a code recipe (+ CREATE RECIPE button) and choose the input folder and the output folder (not datasets).
+When you are done exploring different type of image processing functions, you can copy the functions you want and paste them in the Image Processing recipe form.
 
-Once in the code recipe, you need to copy the output folder id into the `output_folder_id` variable above and delete the last two lines that were automatically added to the code. More detailed instructions are written in the notebook.
-
-You also have to change the code env of the code recipe (in the advanced tab) for the newly created code env that has the same packages as the plugin code env.
-
-![](resource/img-doc/doc-notebook-code-env-selection.png)
+![](resource/img-doc/doc-image-processing-recipe.png)
 
 
 ## Requirements

@@ -1,12 +1,14 @@
 {
     "meta": {
-        "label": "OCR - Image conversion",
-        "description": "Convert all type of images and PDFs into jpg. Split multipage PDF into multiple images as well.",
-        "icon": "icon-picture"
+        "label": "OCR - Image processing",
+        "description": "Process images using the image processing functions specified by user.",
+        "icon": "icon-cogs"
     },
 
     "kind": "PYTHON",
     "selectableFromFolder": "input_folder",
+    "paramsTemplate" : "image-processing-template.html",
+    "paramsModule" : "imageProcessingTemplate.module",
 
     "inputRoles" : [
         {
@@ -14,7 +16,7 @@
             "label": "Input folder",
             "arity": "UNARY",
             "required": true,
-            "description": "Folder of input images or PDF",
+            "description": "Folder of input JPG images",
             "acceptsManagedFolder": true,
             "acceptsDataset": false
         }
@@ -26,14 +28,11 @@
             "label": "Output folder",
             "arity": "UNARY",
             "required": true,
-            "description": "Folder of output JPG images",
+            "description": "Folder of output processed JPG images",
             "acceptsManagedFolder": true,
             "acceptsDataset": false
         }
     ],
-
-
-    "params": [],
 
     "resourceKeys": []
 
