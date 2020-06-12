@@ -38,7 +38,9 @@ def text_extraction_parameters(recipe_config):
     params = {}
     params['recombine_pdf'] = _p('recombine_pdf', default=False)
     params['advanced'] = _p('advanced_parameters', default=False)
-    params['language'] = _p('language', default='eng')
-    params['remove_special_characters'] = _p('remove_special_characters', default=False)
+    if params['advanced']:
+        params['language'] = _p('language', default='eng')
+    else:
+        params['language'] = 'eng'
 
     return params

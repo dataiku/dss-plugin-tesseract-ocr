@@ -15,7 +15,7 @@ total_images = len(input_filenames)
 
 params = image_processing_parameters(get_recipe_config())
 
-logger.info("params: {}".format(params))
+logger.info("OCR - params: {}".format(params))
 
 try:
     if params['functions_definition']:

@@ -9,9 +9,10 @@ logger = logging.getLogger(__name__)
 input_folder, output_folder = get_input_output('folder', 'folder')
 
 input_filenames = input_folder.list_paths_in_partition()
+total_images = len(input_filenames)
 
 # check if pdf and split pdf into multiple images
-for sample_file in input_filenames:
+for i, sample_file in enumerate(input_filenames):
     prefix = sample_file.split('.')[0]
     suffix = sample_file.split('.')[-1]
 
@@ -37,3 +38,5 @@ for sample_file in input_filenames:
         img_bytes = buf.getvalue()
 
         output_folder.upload_data(prefix + ".jpg", img_bytes)
+
+    logger.info("OCR - Converted {}/{} images".format(i+1, total_images))

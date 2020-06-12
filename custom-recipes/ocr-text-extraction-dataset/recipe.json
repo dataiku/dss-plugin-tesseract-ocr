@@ -1,6 +1,6 @@
 {
     "meta": {
-        "label": "OCR - Text extraction from images",
+        "label": "OCR - Text extraction",
         "description": "Extract text from JPG images into a dataset of filename and text",
         "icon": "icon-file-text-alt"
     },
@@ -48,14 +48,6 @@
             "label": "Specify language",
             "type": "STRING",
             "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files",
-            "visibilityCondition" : "model.advanced_parameters"
-        },
-        {
-            "name": "remove_special_characters",
-            "label": "Remove special chararters",
-            "type": "BOOLEAN",
-            "description": "Keep only letters and numbers",
-            "defaultValue": false,
             "visibilityCondition" : "model.advanced_parameters"
         }
     ],
