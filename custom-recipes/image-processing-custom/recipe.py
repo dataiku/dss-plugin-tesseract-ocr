@@ -4,7 +4,7 @@ from io import BytesIO
 import numpy as np
 import logging
 from utils import get_input_output, image_processing_parameters
-
+from constants import Constants
 
 logger = logging.getLogger(__name__)
 
@@ -15,16 +15,14 @@ total_images = len(input_filenames)
 
 params = image_processing_parameters(get_recipe_config())
 
-logger.info("OCR - params: {}".format(params))
-
 try:
-    if params['functions_definition']:
-        logger.info("about to execute: {}".format(params['functions_definition']))
-        exec(params['functions_definition'])
+    if params[Constants.FUNCTIONS_DEF]:
+        logger.info("about to execute: {}".format(params[Constants.FUNCTIONS_DEF]))
+        exec(params[Constants.FUNCTIONS_DEF])
 
-    if params['pipeline_definition']:
-        logger.info("about to execute: {}".format(params['pipeline_definition']))
-        exec(params['pipeline_definition'])
+    if params[Constants.PIPELINE_DEF]:
+        logger.info("about to execute: {}".format(params[Constants.PIPELINE_DEF]))
+        exec(params[Constants.PIPELINE_DEF])
 
     complete_processing  # check that this function exists
 except Exception as e:
@@ -32,6 +30,8 @@ except Exception as e:
 
 for i, sample_file in enumerate(input_filenames):
     if sample_file.split('.')[-1] != "jpg":
+        logger.info("OCR - Rejecting {} because it is not a JPG file.".format(sample_file))
+        logger.info("OCR - Rejected {}/{} images".format(i+1, total_images))
         continue
 
     with input_folder.get_download_stream(sample_file) as stream:
@@ -42,7 +42,7 @@ for i, sample_file in enumerate(input_filenames):
     logger.info("OCR - Processed {}/{} images".format(i+1, total_images))
 
     buf = BytesIO()
-    Image.fromarray(processed_image).save(buf, format='JPEG')
+    Image.fromarray(processed_image).save(buf, format='JPEG', dpi=(1000, 1000))
     processed_img_bytes = buf.getvalue()
 
     output_folder.upload_data(sample_file, processed_img_bytes)

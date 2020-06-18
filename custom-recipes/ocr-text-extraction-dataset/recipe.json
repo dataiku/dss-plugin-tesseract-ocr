@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "OCR - Text extraction",
-        "description": "Extract text from JPG images into a dataset of filename and text",
+        "description": "Extract text from JPG images into a dataset of filename and text.",
         "icon": "icon-file-text-alt"
     },
 
@@ -36,7 +36,8 @@
         {
             "name": "recombine_pdf",
             "label" : "Recombine multiple-page PDF together",
-            "type": "BOOLEAN"
+            "type": "BOOLEAN",
+            "description": "Text of images that are from the same original multiple-page PDF (images with name pattern <PDF_NAME>_pdf_page_XXXXX.jpg) are concatenated."
         },
         {
             "name": "advanced_parameters",
@@ -47,7 +48,7 @@
             "name": "language",
             "label": "Specify language",
             "type": "STRING",
-            "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files",
+            "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files. Languages must be installed beforehand.",
             "visibilityCondition" : "model.advanced_parameters"
         }
     ],

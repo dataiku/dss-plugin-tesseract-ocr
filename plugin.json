@@ -11,11 +11,11 @@
 
         "author": "Dataiku (Stanislas GUINEL)",
 
-        "icon": "icon-folder-close",
+        "icon": "icon-picture",
 
         "tags": ["NLP", "Images"],
 
-        "url": "https://www.dataiku.com/product/plugins/tesseract-ocr.html",
+        "url": "https://www.dataiku.com/product/plugins/tesseract-ocr/",
 
         "licenseInfo": "Apache Software License"
     }

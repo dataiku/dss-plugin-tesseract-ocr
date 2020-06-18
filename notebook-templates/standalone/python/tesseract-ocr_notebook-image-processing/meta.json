@@ -1,4 +1,5 @@
 {
     "label": "Image processing for text extraction",
+    "description": "For advanced users. Use the notebook template to find good image processing functions for your images and then use them in the image processing recipe.",
     "shortDesc":"Use this notebook to first explore the effect of different type of image processing and then process all images for later text extraction"
 }

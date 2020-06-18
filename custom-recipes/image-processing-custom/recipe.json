@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "OCR - Image processing",
-        "description": "Process images using the image processing functions specified by user.",
+        "description": "For advanced users. Use the notebook template to find good image processing functions for your images. All images in the input folder are processed using the image processing functions specified by the user in the recipe parameter's form.",
         "icon": "icon-cogs"
     },
 
