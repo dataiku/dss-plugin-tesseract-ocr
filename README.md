@@ -19,7 +19,7 @@ In the notebook, you can visualize the effect of image processing functions usin
 
 ![](resource/img-doc/doc-notebook-image-viz.png)
 
-You can also look at the extracted text before and after image processing using the function `display_images_before_after` defined in the notebook:
+You can also look at the extracted text before and after image processing using the function `text_extraction_before_after` defined in the notebook:
 
 ![](resource/img-doc/doc-notebook-extracted-text-viz.png)
 
