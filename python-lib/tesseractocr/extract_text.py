@@ -18,6 +18,9 @@ def text_extraction(img_bytes, params):
         logger.info("OCR - converting image to greyscale.")
         img = img.convert('L')
 
-    img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
+    try:
+        img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
+    except Exception as e:
+        logger.info("OCR - Error calling pytesseract: {}".format(e))
 
     return img_text

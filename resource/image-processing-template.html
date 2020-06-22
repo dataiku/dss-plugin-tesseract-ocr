@@ -8,10 +8,6 @@
 # for example
 import cv2
 
-def blurring(image):
-    &quot;&quot;&quot; Blurs an image using the median filter. &quot;&quot;&quot;
-    return cv2.medianBlur(image,5)
-
 def thresholding(image):
     &quot;&quot;&quot; Set pixels to black or white based on some threshold. &quot;&quot;&quot;   
     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
@@ -36,7 +32,6 @@ def complete_processing(image):
     # add the functions you defined above here
 
     # for example
-    image = blurring(image)
     image = thresholding(image)
     image = resizing(image)
 
