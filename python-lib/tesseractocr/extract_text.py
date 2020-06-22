@@ -21,6 +21,6 @@ def text_extraction(img_bytes, params):
     try:
         img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
     except Exception as e:
-        logger.info("OCR - Error calling pytesseract: {}".format(e))
+        raise Exception("OCR - Error calling pytesseract: {}".format(e))
 
     return img_text
