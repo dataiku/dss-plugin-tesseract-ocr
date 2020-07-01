@@ -1,11 +1,11 @@
-  
+
 {
     "id": "tesseract-ocr",
 
     "version": "1.0.0",
 
     "meta": {
-        "label": "Tesseract ocr",
+        "label": "Tesseract OCR",
 
         "description": "Plugin for optical character recognition (OCR) in python using the tesseract engine.",
 
