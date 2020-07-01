@@ -1,0 +1,39 @@
+{
+    "meta": {
+        "label": "OCR - Image processing",
+        "description": "For advanced users. Use the notebook template to find good image processing functions for your images. All images in the input folder are processed using the image processing functions specified by the user in the recipe parameter's form. Inputs must be greyscale JPG images.",
+        "icon": "icon-cogs"
+    },
+
+    "kind": "PYTHON",
+    "selectableFromFolder": "input_folder",
+    "paramsTemplate" : "image-processing-template.html",
+    "paramsModule" : "imageProcessingTemplate.module",
+
+    "inputRoles" : [
+        {
+            "name": "input_folder",
+            "label": "Input folder",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Folder of input JPG images",
+            "acceptsManagedFolder": true,
+            "acceptsDataset": false
+        }
+    ],
+    
+    "outputRoles" : [
+        {
+            "name": "output_folder",
+            "label": "Output folder",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Folder of output processed JPG images",
+            "acceptsManagedFolder": true,
+            "acceptsDataset": false
+        }
+    ],
+
+    "resourceKeys": []
+
+}

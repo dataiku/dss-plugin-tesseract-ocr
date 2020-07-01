@@ -1,0 +1,66 @@
+{
+    "meta": {
+        "label": "OCR - Image conversion",
+        "description": "Convert PDF/JPG/JPEG/PNG/TIFF files into greyscale JPG images. Split multipage PDF into multiple images as well.",
+        "icon": "icon-picture"
+    },
+
+    "kind": "PYTHON",
+    "selectableFromFolder": "input_folder",
+
+    "inputRoles" : [
+        {
+            "name": "input_folder",
+            "label": "Input folder",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Folder of input images or PDF",
+            "acceptsManagedFolder": true,
+            "acceptsDataset": false
+        }
+    ],
+    
+    "outputRoles" : [
+        {
+            "name": "output_folder",
+            "label": "Output folder",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Folder of output JPG images",
+            "acceptsManagedFolder": true,
+            "acceptsDataset": false
+        }
+    ],
+
+
+    "params": [
+        {
+            "name": "advanced_parameters",
+            "label" : "Advanced parameters",
+            "type": "BOOLEAN"
+        },
+        {
+            "name": "dpi",
+            "label" : "Dot Per Inch (DPI)",
+            "description": "DPI of output images (only for images converted from PDF).",
+            "type": "INT",
+            "minI": 1,
+            "maxI": 4000,
+            "defaultValue": 200,
+            "visibilityCondition" : "model.advanced_parameters"
+        },
+        {
+            "name": "quality",
+            "label" : "Quality",
+            "description": "Quality of output images, on a scale from 1 (worst) to 95 (best). The default is 75. More info here: https://pillow.readthedocs.io/en/5.1.x/handbook/image-file-formats.html#jpeg",
+            "type": "INT",
+            "minI": 1,
+            "maxI": 95,
+            "defaultValue": 75,
+            "visibilityCondition" : "model.advanced_parameters"
+        }
+    ],
+
+    "resourceKeys": []
+
+}
