@@ -6,6 +6,8 @@ import logging
 from utils import get_input_output, convert_image_to_greyscale_bytes, image_conversion_parameters
 from constants import Constants
 
+oprint(;eee)
+
 logger = logging.getLogger(__name__)
 
 input_folder, output_folder = get_input_output('folder', 'folder')
