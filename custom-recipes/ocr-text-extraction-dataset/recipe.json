@@ -54,7 +54,7 @@
         {
             "name": "config",
             "label": "Custom config string",
-            "type": "STRING",
+            "type": "TEXTAREA",
             "description": "Enter custom configuration string (find out more at https://tesseract-ocr.github.io/tessdoc/ControlParams.html).",
             "visibilityCondition" : "model.advanced_parameters"
         }
