@@ -8,3 +8,4 @@ class Constants:
     RECOMBINE_PDF = "recombine_pdf"
     LANGUAGE = "language"
     DEFAULT_LANGUAGE = "eng"
+    CONFIG
