@@ -22,7 +22,7 @@ def text_extraction(img_bytes, params):
     try:
         img = np.array(img)
         print('CONFFFFFIIIIF', params['config'])
-        img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE], config=params[Constants.CONFIG])
+        img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE], config=params['config'])
     except Exception as e:
         raise Exception("OCR - Error calling pytesseract: {}".format(e))
 
