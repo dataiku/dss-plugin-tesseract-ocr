@@ -55,7 +55,7 @@
             "name": "config",
             "label": "Custom config string",
             "type": "STRING",
-            "description": "Enter custom configuration string (find out more at https://tesseract-ocr.github.io/tessdoc/ControlParams.html). If a langage is specified, it will override previously chosen langage",
+            "description": "Enter custom configuration string (find out more at https://tesseract-ocr.github.io/tessdoc/ControlParams.html).",
             "visibilityCondition" : "model.advanced_parameters"
         }
     ],
