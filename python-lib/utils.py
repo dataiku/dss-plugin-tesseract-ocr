@@ -59,6 +59,7 @@ def text_extraction_parameters(recipe_config):
     params['advanced'] = recipe_config.get('advanced_parameters', False)
     if params['advanced']:
         params[Constants.LANGUAGE] = recipe_config.get(Constants.LANGUAGE, Constants.DEFAULT_LANGUAGE)
+        params[Constants.CONFIG] = recipe_config.get(Constants.CONFIG, False)
     else:
         params[Constants.LANGUAGE] = Constants.DEFAULT_LANGUAGE
 
