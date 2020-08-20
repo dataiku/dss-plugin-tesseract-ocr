@@ -50,6 +50,13 @@
             "type": "STRING",
             "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files. Languages must be installed beforehand.",
             "visibilityCondition" : "model.advanced_parameters"
+        },
+        {
+            "name": "config",
+            "label": "Pass custom config string",
+            "type": "STRING",
+            "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files. Languages must be installed beforehand.",
+            "visibilityCondition" : "model.advanced_parameters"
         }
     ],
 
