@@ -11,7 +11,7 @@ input_folder, output_dataset = get_input_output('folder', 'dataset')
 
 params = text_extraction_parameters(get_recipe_config())
 
-print(params)
+print('PAAARAMS', params)
 
 input_filenames = input_folder.list_paths_in_partition()
 total_images = len(input_filenames)
