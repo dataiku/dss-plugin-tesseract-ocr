@@ -62,5 +62,6 @@ def text_extraction_parameters(recipe_config):
         params[Constants.CONFIG] = recipe_config.get(Constants.CONFIG, False)
     else:
         params[Constants.LANGUAGE] = Constants.DEFAULT_LANGUAGE
+        params[Constants.CONFIG] = ''
 
     return params
