@@ -1,6 +1,6 @@
 pdf2image==1.6.0
 pytesseract==0.2.7
-Pillow==7.0.0
+Pillow==8.1.0
 matplotlib==3.2.0
 opencv-python==4.2.0.34
 deskew==0.10.2
