@@ -1,8 +1,32 @@
-PLUGIN_VERSION=1.0.0
-PLUGIN_ID=tesseract-ocr
+# Makefile variables set automatically
+plugin_id=`cat plugin.json | python -c "import sys, json; print(str(json.load(sys.stdin)['id']).replace('/',''))"`
+plugin_version=`cat plugin.json | python -c "import sys, json; print(str(json.load(sys.stdin)['version']).replace('/',''))"`
+archive_file_name="dss-plugin-${plugin_id}-${plugin_version}.zip"
+remote_url=`git config --get remote.origin.url`
+last_commit_id=`git rev-parse HEAD`
+
 
 plugin:
-	cat plugin.json|json_pp > /dev/null
+	@echo "[START] Archiving plugin to dist/ folder..."
+	@cat plugin.json | json_pp > /dev/null
+	@rm -rf dist
+	@mkdir dist
+	@echo "{\"remote_url\":\"${remote_url}\",\"last_commit_id\":\"${last_commit_id}\"}" > release_info.json
+	@git archive -v -9 --format zip -o dist/${archive_file_name} HEAD
+	@zip -u dist/${archive_file_name} release_info.json
+	@rm release_info.json
+	@echo "[SUCCESS] Archiving plugin to dist/ folder: Done!"
+
+unit-tests:
+	@echo "[START] Running unit tests..."
+	@echo "[SUCCESS] Running unit tests: Done!"
+
+integration-tests:
+	@echo "[START] Running integration tests..."
+	# TODO add integration tests
+	@echo "[SUCCESS] Running integration tests: Done!"
+
+tests: unit-tests integration-tests
+
+dist-clean:
 	rm -rf dist
-	mkdir dist
-	zip --exclude "*.pyc" --exclude "resource/img-doc/*" -r dist/dss-plugin-${PLUGIN_ID}-${PLUGIN_VERSION}.zip code-env custom-recipes js notebook-templates python-lib resource plugin.json
