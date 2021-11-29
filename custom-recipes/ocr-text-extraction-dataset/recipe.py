@@ -14,7 +14,7 @@ params = text_extraction_parameters(get_recipe_config())
 input_filenames = input_folder.list_paths_in_partition()
 total_images = len(input_filenames)
 
-df = pd.DataFrame(columns=['file', 'text'])
+df = pd.DataFrame()
 
 for i, sample_file in enumerate(input_filenames):
     if sample_file.split('.')[-1] != "jpg":
