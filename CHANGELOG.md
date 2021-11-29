@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 1.0.2](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v1.0.2) - Initial release - 2021-03
+## [Version 1.0.2](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v1.0.2) - Initial release - 2021-11
 
 - Fix an error in python 37 in the text extraction recipe
 
