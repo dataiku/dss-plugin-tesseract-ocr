@@ -1,6 +1,6 @@
 {
     "id": "tesseract-ocr",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "meta": {
         "label": "Tesseract OCR",
         "description": "Extract text from images using the Tesseract Optical Character Recognition (OCR) engine",
