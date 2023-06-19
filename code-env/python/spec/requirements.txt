@@ -4,3 +4,4 @@ Pillow==8.1.0
 matplotlib==3.3.4
 opencv-python==4.5.1.48
 deskew==0.10.3
+easyocr==1.7.0

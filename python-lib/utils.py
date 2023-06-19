@@ -22,7 +22,7 @@ def get_input_output(input_type='dataset', output_type='dataset'):
     return input_obj, output_obj
 
 
-def convert_image_to_greyscale_bytes(img, quality):
+def convert_image_to_greyscale_bytes(img, quality=75):
     """ convert a PIL image to greyscale with a specified dpi and output image as bytes """
     img = img.convert('L')
     buf = BytesIO()
@@ -56,10 +56,13 @@ def text_extraction_parameters(recipe_config):
     """ retrieve text extraction recipe parameters """
     params = {}
     params[Constants.RECOMBINE_PDF] = recipe_config.get(Constants.RECOMBINE_PDF, False)
-    params['advanced'] = recipe_config.get('advanced_parameters', False)
-    if params['advanced']:
-        params[Constants.LANGUAGE] = recipe_config.get(Constants.LANGUAGE, Constants.DEFAULT_LANGUAGE)
-    else:
-        params[Constants.LANGUAGE] = Constants.DEFAULT_LANGUAGE
+    params[Constants.OCR_ENGINE] = recipe_config.get(Constants.OCR_ENGINE, Constants.TESSERACT)
+    advanced = recipe_config.get('advanced_parameters', False)
+    if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
+        params[Constants.LANGUAGE] = recipe_config.get(Constants.LANGUAGE, "eng") if advanced else "eng"
+    elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
+        import easyocr
+        language = recipe_config.get(Constants.LANGUAGE, "en") if advanced else "en"
+        params[Constants.EASYOCR_READER] = easyocr.Reader([language])
 
     return params

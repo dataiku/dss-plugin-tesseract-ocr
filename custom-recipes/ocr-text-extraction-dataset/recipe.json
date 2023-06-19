@@ -2,7 +2,8 @@
     "meta": {
         "label": "OCR - Text extraction",
         "description": "Extract text from JPG images into a dataset of filename and text.",
-        "icon": "icon-file-text-alt"
+        "icon": "icon-file-text-alt",
+        "displayOrderRank": 1
     },
 
     "kind": "PYTHON",
@@ -31,13 +32,29 @@
             "acceptsDataset": true
         }
     ],
-
     "params": [
         {
             "name": "recombine_pdf",
             "label" : "Recombine multiple-page PDF together",
             "type": "BOOLEAN",
             "description": "Text of images that are from the same original multiple-page PDF (images with name pattern <PDF_NAME>_pdf_page_XXXXX.jpg) are concatenated."
+        },
+        {
+            "name": "ocr_engine",
+            "label": "OCR Engine",
+            "type": "SELECT",
+            "mandatory": true,
+            "defaultValue": "tesseract",
+            "selectChoices": [
+                {
+                    "value": "tesseract",
+                    "label": "Tesseract"
+                },
+                {
+                    "value": "easyocr",
+                    "label": "EasyOCR"
+                }
+            ]
         },
         {
             "name": "advanced_parameters",
@@ -48,8 +65,15 @@
             "name": "language",
             "label": "Specify language",
             "type": "STRING",
-            "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files. Languages must be installed beforehand.",
-            "visibilityCondition" : "model.advanced_parameters"
+            "description": "Enter language code found at https://tesseract-ocr.github.io/tessdoc/Data-Files. Languages must be installed beforehand",
+            "visibilityCondition" : "model.advanced_parameters && model.ocr_engine == 'tesseract'"
+        },
+        {
+            "name": "language_easyocr",
+            "label": "Specify language",
+            "type": "STRING",
+            "description": "Enter language code found at https://www.jaided.ai/easyocr/.",
+            "visibilityCondition" : "model.advanced_parameters && model.ocr_engine == 'easyocr'"
         }
     ],
 

@@ -7,4 +7,7 @@ class Constants:
     QUALITY = "quality"
     RECOMBINE_PDF = "recombine_pdf"
     LANGUAGE = "language"
-    DEFAULT_LANGUAGE = "eng"
+    OCR_ENGINE = "ocr_engine"
+    EASYOCR = "easyocr"
+    TESSERACT = "tesseract"
+    EASYOCR_READER = "easyocr_reader"

@@ -19,10 +19,18 @@ def text_extraction(img_bytes, params):
         logger.info("OCR - converting image to greyscale.")
         img = img.convert('L')
 
-    try:
-        img = np.array(img)
-        img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
-    except Exception as e:
-        raise Exception("OCR - Error calling pytesseract: {}".format(e))
+    if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
+        try:
+            img = np.array(img)
+            img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
+        except Exception as e:
+            raise Exception("OCR - Error calling pytesseract: {}".format(e))
+    elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
+        try:
+            img = np.array(img)
+            reader = params[Constants.EASYOCR_READER]
+            img_text = " ".join(reader.readtext(img_bytes, detail=0))
+        except Exception as e:
+            raise Exception("OCR - Error calling easyocr: {}".format(e))
 
     return img_text
