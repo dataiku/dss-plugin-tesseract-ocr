@@ -4,12 +4,12 @@ from pdf2image import convert_from_bytes
 from time import perf_counter
 import re
 
-from constants import Constants
+from ocr_constants import Constants
 from dataiku.customrecipe import get_recipe_config
 from tesseractocr.extract_text import text_extraction
-from utils import convert_image_to_greyscale_bytes
-from utils import get_input_output
-from utils import text_extraction_parameters
+from ocr_utils import convert_image_to_greyscale_bytes
+from ocr_utils import get_input_output
+from ocr_utils import text_extraction_parameters
 
 
 logger = logging.getLogger(__name__)

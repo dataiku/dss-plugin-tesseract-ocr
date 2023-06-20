@@ -3,14 +3,14 @@ from io import BytesIO
 import numpy as np
 import pytesseract
 import logging
-from constants import Constants
+from ocr_constants import Constants
 
 logger = logging.getLogger(__name__)
 
 
 def text_extraction(img_bytes, params):
     """
-    extract text from bytes images using pytesseract (with specified language)
+    extract text from bytes images using the selected OCR engine (with specified language)
     """
     img = Image.open(BytesIO(img_bytes))
 
@@ -32,5 +32,7 @@ def text_extraction(img_bytes, params):
             img_text = " ".join(reader.readtext(img_bytes, detail=0))
         except Exception as e:
             raise Exception("OCR - Error calling easyocr: {}".format(e))
+    else:
+        raise NotImplementedError("OCR engine {} not implemented".format(params[Constants.OCR_ENGINE]))
 
     return img_text

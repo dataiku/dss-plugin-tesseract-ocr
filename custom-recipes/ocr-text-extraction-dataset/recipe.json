@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "OCR - Text extraction",
-        "description": "Extract text from JPG images into a dataset of filename and text.",
+        "description": "Extract text from PDF/JPG/JPEG/PNG/TIFF files into a dataset of filename and text.",
         "icon": "icon-file-text-alt",
         "displayOrderRank": 1
     },
@@ -32,29 +32,22 @@
             "acceptsDataset": true
         }
     ],
+    "paramsPythonSetup": "select_ocr_engine.py",
     "params": [
         {
             "name": "recombine_pdf",
             "label" : "Recombine multiple-page PDF together",
             "type": "BOOLEAN",
-            "description": "Text of images that are from the same original multiple-page PDF (images with name pattern <PDF_NAME>_pdf_page_XXXXX.jpg) are concatenated."
+            "description": "Multiple-page PDFs and images with name pattern $FILENAME_pdf_page_XXXXX.jpg are extracted into a single text."
         },
         {
             "name": "ocr_engine",
             "label": "OCR Engine",
             "type": "SELECT",
             "mandatory": true,
-            "defaultValue": "tesseract",
-            "selectChoices": [
-                {
-                    "value": "tesseract",
-                    "label": "Tesseract"
-                },
-                {
-                    "value": "easyocr",
-                    "label": "EasyOCR"
-                }
-            ]
+            "description": "",
+            "defaultValue": "default",
+            "getChoicesFromPython": true
         },
         {
             "name": "advanced_parameters",

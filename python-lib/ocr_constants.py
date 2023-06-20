@@ -8,6 +8,7 @@ class Constants:
     RECOMBINE_PDF = "recombine_pdf"
     LANGUAGE = "language"
     OCR_ENGINE = "ocr_engine"
-    EASYOCR = "easyocr"
+    DEFAULT_ENGINE = "default"
     TESSERACT = "tesseract"
+    EASYOCR = "easyocr"
     EASYOCR_READER = "easyocr_reader"

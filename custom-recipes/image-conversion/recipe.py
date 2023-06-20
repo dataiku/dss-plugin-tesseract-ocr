@@ -3,8 +3,8 @@ from pdf2image import convert_from_bytes
 from PIL import Image
 from io import BytesIO
 import logging
-from utils import get_input_output, convert_image_to_greyscale_bytes, image_conversion_parameters
-from constants import Constants
+from ocr_utils import get_input_output, convert_image_to_greyscale_bytes, image_conversion_parameters
+from ocr_constants import Constants
 
 logger = logging.getLogger(__name__)
 

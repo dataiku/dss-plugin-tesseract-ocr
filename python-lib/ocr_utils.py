@@ -1,7 +1,8 @@
 import dataiku
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role
 from io import BytesIO
-from constants import Constants
+from ocr_constants import Constants
+from shutil import which
 
 
 def get_input_output(input_type='dataset', output_type='dataset'):
@@ -56,7 +57,7 @@ def text_extraction_parameters(recipe_config):
     """ retrieve text extraction recipe parameters """
     params = {}
     params[Constants.RECOMBINE_PDF] = recipe_config.get(Constants.RECOMBINE_PDF, False)
-    params[Constants.OCR_ENGINE] = recipe_config.get(Constants.OCR_ENGINE, Constants.TESSERACT)
+    params[Constants.OCR_ENGINE] = _get_ocr_engine(recipe_config)
     advanced = recipe_config.get('advanced_parameters', False)
     if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
         params[Constants.LANGUAGE] = recipe_config.get(Constants.LANGUAGE, "eng") if advanced else "eng"
@@ -66,3 +67,17 @@ def text_extraction_parameters(recipe_config):
         params[Constants.EASYOCR_READER] = easyocr.Reader([language])
 
     return params
+
+
+def _get_ocr_engine(recipe_config):
+    selected_ocr_engine = recipe_config.get(Constants.OCR_ENGINE, Constants.DEFAULT_ENGINE)
+    if selected_ocr_engine == Constants.DEFAULT_ENGINE:
+        return get_default_ocr_engine()
+    else:
+        return selected_ocr_engine
+
+
+def get_default_ocr_engine():
+    if which("tesseract") is not None:  # check if tesseract is in the path
+        return Constants.TESSERACT
+    return Constants.EASYOCR
