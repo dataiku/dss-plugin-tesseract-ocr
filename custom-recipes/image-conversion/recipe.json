@@ -1,8 +1,9 @@
 {
     "meta": {
-        "label": "OCR - Image conversion",
+        "label": "Image conversion",
         "description": "Convert PDF/JPG/JPEG/PNG/TIFF files into greyscale JPG images. Split multipage PDF into multiple images as well.",
-        "icon": "icon-picture"
+        "icon": "icon-picture",
+        "displayOrderRank": 2
     },
 
     "kind": "PYTHON",
