@@ -60,10 +60,10 @@ def text_extraction_parameters(recipe_config):
     params[Constants.OCR_ENGINE] = _get_ocr_engine(recipe_config)
     advanced = recipe_config.get('advanced_parameters', False)
     if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
-        params[Constants.LANGUAGE] = recipe_config.get(Constants.LANGUAGE, "eng") if advanced else "eng"
+        params[Constants.LANGUAGE_TESSERACT] = recipe_config.get(Constants.LANGUAGE_TESSERACT, "eng") if advanced else "eng"
     elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
         import easyocr
-        language = recipe_config.get(Constants.LANGUAGE, "en") if advanced else "en"
+        language = recipe_config.get(Constants.LANGUAGE_EASYOCR, "en") if advanced else "en"
         params[Constants.EASYOCR_READER] = easyocr.Reader([language])
 
     return params

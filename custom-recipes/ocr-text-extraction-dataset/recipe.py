@@ -1,15 +1,15 @@
 import logging
 import pandas as pd
 from pdf2image import convert_from_bytes
-from time import perf_counter
 import re
+from time import perf_counter
 
-from ocr_constants import Constants
 from dataiku.customrecipe import get_recipe_config
-from tesseractocr.extract_text import text_extraction
+from ocr_constants import Constants
 from ocr_utils import convert_image_to_greyscale_bytes
 from ocr_utils import get_input_output
 from ocr_utils import text_extraction_parameters
+from tesseractocr.extract_text import text_extraction
 
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ input_folder, output_dataset = get_input_output('folder', 'dataset')
 params = text_extraction_parameters(get_recipe_config())
 
 input_filenames = input_folder.list_paths_in_partition()
-total_images = len(input_filenames)
+total_files = len(input_filenames)
 
 rows = []
 
@@ -29,7 +29,7 @@ for i, sample_file in enumerate(input_filenames):
 
     if suffix not in Constants.TYPES:
         logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.TYPES)))
-        logger.info("OCR - Rejected {}/{} images".format(i+1, total_images))
+        logger.info("OCR - Rejected {}/{} files".format(i+1, total_files))
         continue
 
     with input_folder.get_download_stream(sample_file) as stream:
@@ -49,7 +49,7 @@ for i, sample_file in enumerate(input_filenames):
         img_text = text_extraction(img_bytes, params)
         rows.append({'file': prefix, 'text': img_text})
 
-    logger.info("OCR - Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_images, perf_counter() - start))
+    logger.info("OCR - Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
 
 df = pd.DataFrame(rows)
 

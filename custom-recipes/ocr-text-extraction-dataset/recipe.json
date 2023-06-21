@@ -38,7 +38,7 @@
             "name": "recombine_pdf",
             "label" : "Recombine multiple-page PDF together",
             "type": "BOOLEAN",
-            "description": "Multiple-page PDFs and images with name pattern $FILENAME_pdf_page_XXXXX.jpg are extracted into a single text."
+            "description": "Multiple-page PDFs and images with name pattern $FILENAME_pdf_page_XXXXX.jpg are extracted into a single row."
         },
         {
             "name": "ocr_engine",
