@@ -7,12 +7,6 @@ The plugin has four components (three recipes and a notebook template):
 - Image Processing notebook: notebook to explore different types of image processing to improve (or not) text extraction from tesseract. Then, the functions that were tested in the notebook can be used in the Image Processing recipe.
 - Image Processing recipe: recipe to process images using functions defined by the user in the python editor area of the recipe parameter's form.
 
-## Release notes
-
-**Version 1.0.1 (2021-03)** - Fix release
-
-- Custom code of the image processing recipe is successfully saved when exiting and coming back to the recipe
-
 ## Instructions to use the notebook template
  
 Go to notebook (G+N) and create a new python notebook. Select the template `Image processing for text extraction` and then check that the plugin code env is selected (you can set it in the tab Kernel > Change kernel).
