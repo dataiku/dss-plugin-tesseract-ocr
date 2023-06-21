@@ -1,5 +1,5 @@
 pdf2image==1.16.0
-pytesseract==0.3.8
+pytesseract==0.3.7
 Pillow==8.2.0
 matplotlib==3.3.4; python_version <= '3.9'
 matplotlib==3.7.1; python_version >= '3.10'
