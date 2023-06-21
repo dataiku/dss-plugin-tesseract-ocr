@@ -1,7 +1,9 @@
 pdf2image==1.16.0
 pytesseract==0.3.8
-matplotlib==3.4.2
 Pillow==8.2.0
-opencv-python==4.5.3.56
+matplotlib==3.3.4; python_version <= '3.9'
+matplotlib==3.7.1; python_version >= '3.10'
+opencv-python==4.5.1.48; python_version <= '3.9'
+opencv-python==4.7.0.72; python_version >= '3.10'
 deskew==0.10.33
 easyocr==1.7.0
