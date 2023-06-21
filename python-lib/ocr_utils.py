@@ -64,6 +64,7 @@ def text_extraction_parameters(recipe_config):
     elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
         import easyocr
         language = recipe_config.get(Constants.LANGUAGE_EASYOCR, "en") if advanced else "en"
+        # instantiate the easyocr.Reader only once here because it takes some time
         params[Constants.EASYOCR_READER] = easyocr.Reader([language])
 
     return params
