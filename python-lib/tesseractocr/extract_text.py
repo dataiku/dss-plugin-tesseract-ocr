@@ -22,7 +22,7 @@ def text_extraction(img_bytes, params):
     if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
         try:
             img = np.array(img)
-            img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE])
+            img_text = pytesseract.image_to_string(img, lang=params[Constants.LANGUAGE_TESSERACT])
         except Exception as e:
             raise Exception("OCR - Error calling pytesseract: {}".format(e))
     elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
