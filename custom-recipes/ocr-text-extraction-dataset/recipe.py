@@ -1,6 +1,5 @@
 import logging
 import pandas as pd
-from pdf2image import convert_from_bytes
 import re
 from time import perf_counter
 
@@ -8,6 +7,7 @@ from dataiku.customrecipe import get_recipe_config
 from ocr_constants import Constants
 from ocr_utils import convert_image_to_greyscale_bytes
 from ocr_utils import get_input_output
+from ocr_utils import pdf_to_pil_images_iterator
 from ocr_utils import text_extraction_parameters
 from tesseractocr.extract_text import text_extraction
 
@@ -38,8 +38,7 @@ for i, sample_file in enumerate(input_filenames):
     start = perf_counter()
 
     if suffix == "pdf":
-        pdf_images = convert_from_bytes(img_bytes, fmt='jpg')
-        for j, img in enumerate(pdf_images):
+        for j, img in enumerate(pdf_to_pil_images_iterator(img_bytes)):
             img_bytes = convert_image_to_greyscale_bytes(img)
             img_text = text_extraction(img_bytes, params)
 

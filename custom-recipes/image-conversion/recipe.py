@@ -1,9 +1,11 @@
 from dataiku.customrecipe import get_recipe_config
-from pdf2image import convert_from_bytes
 from PIL import Image
 from io import BytesIO
 import logging
-from ocr_utils import get_input_output, convert_image_to_greyscale_bytes, image_conversion_parameters
+from ocr_utils import get_input_output
+from ocr_utils import convert_image_to_greyscale_bytes
+from ocr_utils import image_conversion_parameters
+from ocr_utils import pdf_to_pil_images_iterator
 from ocr_constants import Constants
 
 logger = logging.getLogger(__name__)
@@ -25,9 +27,7 @@ for i, sample_file in enumerate(input_filenames):
             img_bytes = stream.read()
 
         if suffix == "pdf":
-            pdf_images = convert_from_bytes(img_bytes, fmt='jpg', dpi=params[Constants.DPI])
-
-            for j, img in enumerate(pdf_images):
+            for j, img in enumerate(pdf_to_pil_images_iterator(img_bytes)):
                 img_bytes = convert_image_to_greyscale_bytes(img, quality=params[Constants.QUALITY])
                 output_folder.upload_data("{0}/{0}{1}{2:05d}.jpg".format(prefix, Constants.PDF_MULTI_SUFFIX, j+1), img_bytes)
 
