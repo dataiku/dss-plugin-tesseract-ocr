@@ -2,6 +2,7 @@ import dataiku
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role
 from io import BytesIO
 from ocr_constants import Constants
+import os
 import pypdfium2 as pdfium
 from shutil import which
 
@@ -82,7 +83,15 @@ def text_extraction_parameters(recipe_config):
         import easyocr
         language = recipe_config.get(Constants.LANGUAGE_EASYOCR, "en") if advanced else "en"
         # instantiate the easyocr.Reader only once here because it takes some time
-        params[Constants.EASYOCR_READER] = easyocr.Reader([language])
+        # use tmp folders inside the job temporary folder to store the model and the custom network model (note that this one isn't used)
+        model_storage_directory = os.path.join(os.getcwd(), "easyocr_model_tmp")
+        user_network_directory = os.path.join(os.getcwd(), "easyocr_user_network_tmp")
+        params[Constants.EASYOCR_READER] = easyocr.Reader(
+            lang_list=[language], gpu=False,
+            model_storage_directory=model_storage_directory,
+            user_network_directory=user_network_directory,
+            verbose=False
+        )
 
     return params
 
