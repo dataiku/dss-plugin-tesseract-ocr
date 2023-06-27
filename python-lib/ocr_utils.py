@@ -2,6 +2,7 @@ import dataiku
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role
 from io import BytesIO
 from ocr_constants import Constants
+import pypdfium2 as pdfium
 from shutil import which
 
 
@@ -21,6 +22,15 @@ def get_input_output(input_type='dataset', output_type='dataset'):
         output_obj = dataiku.Dataset(output_names)
 
     return input_obj, output_obj
+
+
+def pdf_to_pil_images_iterator(pdf_bytes, dpi=None):
+    """ iterator over the multiple images of pdf bytes """
+    pdf_pages = pdfium.PdfDocument("minimal-document.pdf")
+    # scale is DPI / 72 according to pypdfium2 doc
+    scale = dpi / 72 if dpi else 2
+    for pdf_page in pdf_pages:
+        yield pdf_page.render(scale=scale).to_pil()
 
 
 def convert_image_to_greyscale_bytes(img, quality=75):
