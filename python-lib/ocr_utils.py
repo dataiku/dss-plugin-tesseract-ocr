@@ -26,7 +26,7 @@ def get_input_output(input_type='dataset', output_type='dataset'):
 
 def pdf_to_pil_images_iterator(pdf_bytes, dpi=None):
     """ iterator over the multiple images of pdf bytes """
-    pdf_pages = pdfium.PdfDocument("minimal-document.pdf")
+    pdf_pages = pdfium.PdfDocument(pdf_bytes)
     # scale is DPI / 72 according to pypdfium2 doc
     scale = dpi / 72 if dpi else 2
     for pdf_page in pdf_pages:
