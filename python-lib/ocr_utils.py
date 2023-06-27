@@ -67,8 +67,15 @@ def text_extraction_parameters(recipe_config):
     """ retrieve text extraction recipe parameters """
     params = {}
     params[Constants.RECOMBINE_PDF] = recipe_config.get(Constants.RECOMBINE_PDF, False)
-    params[Constants.OCR_ENGINE] = _get_ocr_engine(recipe_config)
+    selected_ocr_engine = recipe_config.get(Constants.OCR_ENGINE, Constants.DEFAULT_ENGINE)
     advanced = recipe_config.get('advanced_parameters', False)
+
+    if selected_ocr_engine == Constants.DEFAULT_ENGINE:
+        advanced = False
+        selected_ocr_engine = get_default_ocr_engine()
+
+    params[Constants.OCR_ENGINE] = selected_ocr_engine
+
     if params[Constants.OCR_ENGINE] == Constants.TESSERACT:
         params[Constants.LANGUAGE_TESSERACT] = recipe_config.get(Constants.LANGUAGE_TESSERACT, "eng") if advanced else "eng"
     elif params[Constants.OCR_ENGINE] == Constants.EASYOCR:
@@ -78,14 +85,6 @@ def text_extraction_parameters(recipe_config):
         params[Constants.EASYOCR_READER] = easyocr.Reader([language])
 
     return params
-
-
-def _get_ocr_engine(recipe_config):
-    selected_ocr_engine = recipe_config.get(Constants.OCR_ENGINE, Constants.DEFAULT_ENGINE)
-    if selected_ocr_engine == Constants.DEFAULT_ENGINE:
-        return get_default_ocr_engine()
-    else:
-        return selected_ocr_engine
 
 
 def get_default_ocr_engine():
