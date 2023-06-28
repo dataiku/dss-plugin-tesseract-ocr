@@ -18,13 +18,18 @@ plugin:
 	@echo "[SUCCESS] Archiving plugin to dist/ folder: Done!"
 
 unit-tests:
-	@echo "[START] Running unit tests..."
-	@echo "[SUCCESS] Running unit tests: Done!"
+	@echo "No unit tests"
 
 integration-tests:
-	@echo "[START] Running integration tests..."
-	# TODO add integration tests
-	@echo "[SUCCESS] Running integration tests: Done!"
+	@echo "Running integration tests..."
+	@( \
+		rm -rf ./env/; \
+		python3 -m venv env/; \
+		source env/bin/activate; \
+		pip3 install --upgrade pip;\
+		pip install --no-cache-dir -r tests/python/integration/requirements.txt; \
+		pytest tests/python/integration --alluredir=tests/allure_report || ret=$$?; exit $$ret \
+	)
 
 tests: unit-tests integration-tests
 
