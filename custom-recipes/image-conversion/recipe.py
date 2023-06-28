@@ -2,7 +2,7 @@ from dataiku.customrecipe import get_recipe_config
 from PIL import Image
 from io import BytesIO
 import logging
-from ocr_utils import get_input_output
+from ocr_recipes_io_utils import get_input_output
 from ocr_utils import convert_image_to_greyscale_bytes
 from ocr_utils import image_conversion_parameters
 from ocr_utils import pdf_to_pil_images_iterator

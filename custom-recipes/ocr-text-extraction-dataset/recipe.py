@@ -1,12 +1,13 @@
 import logging
+import os
 import pandas as pd
 import re
 from time import perf_counter
 
 from dataiku.customrecipe import get_recipe_config
 from ocr_constants import Constants
+from ocr_recipes_io_utils import get_input_output
 from ocr_utils import convert_image_to_greyscale_bytes
-from ocr_utils import get_input_output
 from ocr_utils import pdf_to_pil_images_iterator
 from ocr_utils import text_extraction_parameters
 from tesseractocr.extract_text import text_extraction
@@ -24,8 +25,8 @@ total_files = len(input_filenames)
 rows = []
 
 for i, sample_file in enumerate(input_filenames):
-    prefix = sample_file.split('.')[0]
-    suffix = sample_file.split('.')[-1]
+    prefix, suffix = os.path.splitext(sample_file)
+    suffix = suffix[1:]  # removing the dot from the extension
 
     if suffix not in Constants.TYPES:
         logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.TYPES)))
