@@ -1,10 +1,10 @@
 {
     "id": "tesseract-ocr",
-    "version": "1.0.3",
+    "version": "2.0.0",
     "meta": {
-        "label": "Tesseract OCR",
-        "description": "Extract text from images using the Tesseract Optical Character Recognition (OCR) engine",
-        "author": "Dataiku (Stanislas GUINEL)",
+        "label": "OCR",
+        "description": "Extract text from images using OCR engines",
+        "author": "Dataiku",
         "icon": "icon-file-text-alt",
         "tags": [
             "NLP",

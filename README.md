@@ -47,19 +47,6 @@ Using macports: `sudo port install tesseract`
 
 For more informations, go to: <https://github.com/tesseract-ocr/tessdoc/blob/master/Home.md>.
 
-### pdf2image
-
-To be able to use the python package pdf2image:
-
-#### Linux
-Most distros ship with pdftoppm and pdftocairo. If they are not installed, refer to your package manager to install poppler-utils
-
-For more informations, go to: <https://github.com/Belval/pdf2image>.
-
-#### Mac
-For macOS using brew: `brew install poppler`.
-Mac users will have to install poppler for Mac (<http://macappstore.org/poppler/>).
-
 ### Specific languages
 
 If you want to specify languages in tesseract, you must install them on the machine with your DSS instance, you can find instructions on how to install them and the code for each language here <https://tesseract-ocr.github.io/tessdoc/Data-Files>.
