@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.1.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.0) - Feature release - 2023-06
+
+- Add a recipe to extract text directly (not OCR) from multiple types of files
+
 ## [Version 2.0.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.0.0) - Feature release - 2023-06
 
 - Add EasyOCR

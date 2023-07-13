@@ -9,7 +9,7 @@ from ocr_constants import Constants
 from ocr_recipes_io_utils import get_input_output
 from ocr_utils import convert_image_to_greyscale_bytes
 from ocr_utils import pdf_to_pil_images_iterator
-from ocr_utils import text_extraction_parameters
+from ocr_utils import ocr_text_extraction_parameters
 from tesseractocr.extract_text import text_extraction
 
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 input_folder, output_dataset = get_input_output('folder', 'dataset')
 
-params = text_extraction_parameters(get_recipe_config())
+params = ocr_text_extraction_parameters(get_recipe_config())
 
 input_filenames = input_folder.list_paths_in_partition()
 total_files = len(input_filenames)
@@ -28,8 +28,8 @@ for i, sample_file in enumerate(input_filenames):
     prefix, suffix = os.path.splitext(sample_file)
     suffix = suffix[1:]  # removing the dot from the extension
 
-    if suffix not in Constants.TYPES:
-        logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.TYPES)))
+    if suffix not in Constants.OCR_TYPES:
+        logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.OCR_TYPES)))
         logger.info("OCR - Rejected {}/{} files".format(i+1, total_files))
         continue
 

@@ -1,5 +1,5 @@
 class Constants:
-    TYPES = ["pdf", "jpg", "jpeg", "png", "tiff"]
+    OCR_TYPES = ["pdf", "jpg", "jpeg", "png", "tiff"]
     PDF_MULTI_SUFFIX = "_pdf_page_"
     FUNCTIONS_DEF = "functions_definition"
     PIPELINE_DEF = "pipeline_definition"

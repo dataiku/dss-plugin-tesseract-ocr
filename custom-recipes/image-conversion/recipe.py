@@ -22,7 +22,7 @@ for i, sample_file in enumerate(input_filenames):
     prefix = sample_file.split('.')[0]
     suffix = sample_file.split('.')[-1]
 
-    if suffix in Constants.TYPES:
+    if suffix in Constants.OCR_TYPES:
         with input_folder.get_download_stream(sample_file) as stream:
             img_bytes = stream.read()
 
@@ -39,5 +39,5 @@ for i, sample_file in enumerate(input_filenames):
         logger.info("OCR - Converted {}/{} images".format(i+1, total_images))
 
     else:
-        logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.TYPES)))
+        logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.OCR_TYPES)))
         logger.info("OCR - Rejected {}/{} images".format(i+1, total_images))
