@@ -1,9 +1,9 @@
 {
     "id": "tesseract-ocr",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "meta": {
-        "label": "OCR",
-        "description": "Extract text from images using OCR engines",
+        "label": "Text extraction and OCR",
+        "description": "Extract text from files' content or use OCR engines",
         "author": "Dataiku",
         "icon": "icon-file-text-alt",
         "tags": [

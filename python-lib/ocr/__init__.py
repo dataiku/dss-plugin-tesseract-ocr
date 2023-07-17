@@ -3,12 +3,12 @@ from io import BytesIO
 import numpy as np
 import pytesseract
 import logging
-from ocr_constants import Constants
+from text_extraction_ocr_utils import Constants
 
 logger = logging.getLogger(__name__)
 
 
-def text_extraction(img_bytes, params):
+def extract_text_ocr(img_bytes, params):
     """
     extract text from bytes images using the selected OCR engine (with specified language)
     """

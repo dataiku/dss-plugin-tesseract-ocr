@@ -5,19 +5,19 @@ import re
 from time import perf_counter
 
 from dataiku.customrecipe import get_recipe_config
-from ocr_constants import Constants
-from ocr_recipes_io_utils import get_input_output
-from ocr_utils import convert_image_to_greyscale_bytes
-from ocr_utils import pdf_to_pil_images_iterator
-from ocr_utils import ocr_text_extraction_parameters
-from tesseractocr.extract_text import text_extraction
+from text_extraction_ocr_utils import Constants
+from text_extraction_ocr_utils.recipes_io_utils import get_input_output
+from text_extraction_ocr_utils import convert_image_to_greyscale_bytes
+from text_extraction_ocr_utils import pdf_to_pil_images_iterator
+from text_extraction_ocr_utils import ocr_parameters
+from ocr import extract_text_ocr
 
 
 logger = logging.getLogger(__name__)
 
 input_folder, output_dataset = get_input_output('folder', 'dataset')
 
-params = ocr_text_extraction_parameters(get_recipe_config())
+params = ocr_parameters(get_recipe_config())
 
 input_filenames = input_folder.list_paths_in_partition()
 total_files = len(input_filenames)
@@ -41,12 +41,12 @@ for i, sample_file in enumerate(input_filenames):
     if suffix == "pdf":
         for j, img in enumerate(pdf_to_pil_images_iterator(img_bytes)):
             img_bytes = convert_image_to_greyscale_bytes(img)
-            img_text = text_extraction(img_bytes, params)
+            img_text = extract_text_ocr(img_bytes, params)
 
             pdf_image_name = "{}{}{:05d}".format(prefix, Constants.PDF_MULTI_SUFFIX, j+1)
             rows.append({'file': pdf_image_name, 'text': img_text})
     else:
-        img_text = text_extraction(img_bytes, params)
+        img_text = extract_text_ocr(img_bytes, params)
         rows.append({'file': prefix, 'text': img_text})
 
     logger.info("OCR - Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))

@@ -3,9 +3,9 @@ import os
 import pandas as pd
 from time import perf_counter
 
-from ocr_recipes_io_utils import get_input_output
-from ocr_utils import extract_text
-from ocr_utils import try_download_pandoc
+from text_extraction_ocr_utils.recipes_io_utils import get_input_output
+from text_extraction import extract_text_content
+from text_extraction import try_download_pandoc
 
 
 # call this method to download pandoc binaries
@@ -32,7 +32,7 @@ for i, sample_file in enumerate(input_filenames):
         file_bytes = stream.read()
 
     try:
-        extracted_text = extract_text(file_bytes, suffix, with_pandoc)
+        extracted_text = extract_text_content(file_bytes, suffix, with_pandoc)
         rows.append({'file': sample_file, 'text': extracted_text, 'error': ""})
         logger.info("Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
     except Exception as e:

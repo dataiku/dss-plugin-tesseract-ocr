@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "Text extraction",
-        "description": "Extract text from files into a dataset of filename and text.",
+        "description": "Extract files' text content into a dataset with columns filename and text (and error message if any)",
         "icon": "icon-file-text-alt",
         "displayOrderRank": 2
     },
@@ -15,7 +15,7 @@
             "label": "Input folder",
             "arity": "UNARY",
             "required": true,
-            "description": "Folder of input PDFs",
+            "description": "Folder of input files",
             "acceptsManagedFolder": true,
             "acceptsDataset": false
         }
@@ -37,7 +37,7 @@
             "name": "description",
             "label": "",
             "type": "SEPARATOR",
-            "description": "Extract text from many kinds of files using pypdfium2, docx or pandoc."
+            "description": "Extract text content from several file types (using pypdfium2, docx, or pandoc)."
         }
     ],
 
