@@ -24,9 +24,10 @@ def try_download_pandoc():
 
 def extract_text_content(file_bytes, extension, with_pandoc):
     """
-    First extract with pdfium or docx PDFs and docx files.
-    Then try to extract text using pandoc into plain text.
-    Finally, just decode the bytes if pandoc failed or is not downloaded.
+    Extract content from file bytes:
+    - First try to extract with PDF or doc file
+    - Then try using pandoc to extract other files into plain text.
+    - Finally, just decode the bytes if pandoc failed or is not downloaded.
     """
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
