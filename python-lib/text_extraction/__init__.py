@@ -10,7 +10,7 @@ import tempfile
 logger = logging.getLogger(__name__)
 
 
-def try_download_pandoc():
+def download_pandoc_binaries():
     """ download pandoc prebuilt binaries into the temporary job folder """
     try:
         import pypandoc
@@ -24,8 +24,8 @@ def try_download_pandoc():
 
 def extract_text_content(file_bytes, extension, with_pandoc):
     """
-    Extract content from file bytes:
-    - First try to extract with PDF or doc file
+    Extract text content from file bytes:
+    - First try to extract from PDF or docx file
     - Then try using pandoc to extract other files into plain text.
     - Finally, just decode the bytes if pandoc failed or is not downloaded.
     """
@@ -35,6 +35,8 @@ def extract_text_content(file_bytes, extension, with_pandoc):
     elif extension == "docx":
         doc = docx.Document(BytesIO(file_bytes))
         return "\n".join([paragraph.text for paragraph in doc.paragraphs])
+    elif extension == "doc":
+        raise ValueError("'doc' files are not supported, try to convert them to docx.")
     else:
         text = ""
         if with_pandoc:
@@ -47,6 +49,7 @@ def extract_text_content(file_bytes, extension, with_pandoc):
             except Exception as e:
                 logger.warning("Failed to extract text with pandoc: {}".format(e))
 
+        # pandoc outputs empty string with new line for some formats that work with .decode() (for instance csv/tsv)
         if not text.strip():
             return file_bytes.decode()
         

@@ -5,11 +5,11 @@ from time import perf_counter
 
 from text_extraction_ocr_utils.recipes_io_utils import get_input_output
 from text_extraction import extract_text_content
-from text_extraction import try_download_pandoc
+from text_extraction import download_pandoc_binaries
 
 
 # call this method to download pandoc binaries
-with_pandoc = try_download_pandoc()
+with_pandoc = download_pandoc_binaries()
 
 logger = logging.getLogger(__name__)
 
