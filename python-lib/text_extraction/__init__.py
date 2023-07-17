@@ -15,7 +15,7 @@ def download_pandoc_binaries():
     try:
         import pypandoc
         pandoc_tmp_directory = os.getcwd()
-        pypandoc.download_pandoc(targetfolder=pandoc_tmp_directory, download_folder=pandoc_tmp_directory)
+        pypandoc.ensure_pandoc_installed(targetfolder=pandoc_tmp_directory)
         return True
     except Exception as e:
         logger.warning("Failed to download pandoc binaries: {}".format(e))
