@@ -11,6 +11,8 @@ from text_extraction_ocr_utils import convert_image_to_greyscale_bytes
 from text_extraction_ocr_utils import pdf_to_pil_images_iterator
 from text_extraction_ocr_utils import ocr_parameters
 from ocr import extract_text_ocr
+from ocr import get_multi_page_pdf_base_name
+from ocr import get_multi_page_pdf_page_nb
 
 
 logger = logging.getLogger(__name__)
@@ -43,20 +45,19 @@ for i, sample_file in enumerate(input_filenames):
             img_bytes = convert_image_to_greyscale_bytes(img)
             img_text = extract_text_ocr(img_bytes, params)
 
-            pdf_image_name = "{}{}{:05d}".format(prefix, Constants.PDF_MULTI_SUFFIX, j+1)
+            pdf_image_name = "{}{}{:05d}.jpg".format(prefix, Constants.PDF_MULTI_SUFFIX, j+1)
             rows.append({'file': pdf_image_name, 'text': img_text})
     else:
         img_text = extract_text_ocr(img_bytes, params)
-        rows.append({'file': prefix, 'text': img_text})
+        rows.append({'file': sample_file, 'text': img_text})
 
     logger.info("OCR - Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
 
 df = pd.DataFrame(rows)
 
 if params['recombine_pdf']:
-    pdf_multi_page_pattern = "^.*{}\d{{5}}$".format(Constants.PDF_MULTI_SUFFIX)
-    df['page_nb'] = df.apply(lambda row: int(row['file'].split(Constants.PDF_MULTI_SUFFIX)[1]) if re.match(pdf_multi_page_pattern, row['file']) else 1, axis=1)
-    df['file'] = df.apply(lambda row: row['file'].split(Constants.PDF_MULTI_SUFFIX)[0] if re.match(pdf_multi_page_pattern, row['file']) else row['file'], axis=1)
+    df['page_nb'] = df.apply(lambda row: get_multi_page_pdf_page_nb(row['file']), axis=1)
+    df['file'] = df.apply(lambda row: get_multi_page_pdf_base_name(row['file']), axis=1)
 
     df = df.sort_values(['file', 'page_nb'], ascending=True)
 

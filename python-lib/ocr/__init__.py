@@ -3,6 +3,7 @@ from io import BytesIO
 import numpy as np
 import pytesseract
 import logging
+import re
 from text_extraction_ocr_utils import Constants
 
 logger = logging.getLogger(__name__)
@@ -36,3 +37,16 @@ def extract_text_ocr(img_bytes, params):
         raise NotImplementedError("OCR engine {} not implemented".format(params[Constants.OCR_ENGINE]))
 
     return img_text
+
+
+def get_multi_page_pdf_page_nb(file_name):
+    if re.match(r"^.*_pdf_page_\d{5}\.jpg$", file_name):
+        return int(re.search(r"^.*_pdf_page_(\d{5})\.jpg$", file_name).group(1))
+    return 1
+
+
+def get_multi_page_pdf_base_name(file_name):
+    if re.match(r"^.*_pdf_page_\d{5}\.jpg$", file_name):
+        base_name = re.search(r"(^.*)_pdf_page_\d{5}\.jpg$", file_name).group(1)
+        return "{}.pdf".format(base_name)
+    return file_name
