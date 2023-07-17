@@ -26,7 +26,7 @@ rows = []
 
 for i, sample_file in enumerate(input_filenames):
     prefix, suffix = os.path.splitext(sample_file)
-    suffix = suffix[1:]  # removing the dot from the extension
+    suffix = suffix[1:].lower()  # removing the dot from the extension and accepting capital letters
 
     if suffix not in Constants.OCR_TYPES:
         logger.info("OCR - Rejecting {} because it is not a {} file.".format(sample_file, '/'.join(Constants.OCR_TYPES)))
