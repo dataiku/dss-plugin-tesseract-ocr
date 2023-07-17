@@ -33,6 +33,10 @@ for i, sample_file in enumerate(input_filenames):
 
     try:
         extracted_text = extract_text_content(file_bytes, suffix, with_pandoc)
+
+        if not extracted_text.strip():
+            logger.warning("Extracted text is empty")
+
         rows.append({'file': sample_file, 'text': extracted_text, 'error': ""})
         logger.info("Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
     except Exception as e:
