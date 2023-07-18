@@ -40,13 +40,14 @@ def extract_text_ocr(img_bytes, params):
 
 
 def get_multi_page_pdf_page_nb(file_name):
-    if re.match(r"^.*_pdf_page_\d{5}\.jpg$", file_name):
-        return int(re.search(r"^.*_pdf_page_(\d{5})\.jpg$", file_name).group(1))
+    matched = re.fullmatch(r".*_pdf_page_(\d{5})\.jpg", file_name)
+    if matched is not None:
+        return int(matched.group(1))
     return 1
 
 
 def get_multi_page_pdf_base_name(file_name):
-    if re.match(r"^.*_pdf_page_\d{5}\.jpg$", file_name):
-        base_name = re.search(r"(^.*)_pdf_page_\d{5}\.jpg$", file_name).group(1)
-        return "{}.pdf".format(base_name)
+    matched = re.fullmatch(r"(.*)_pdf_page_\d{5}\.jpg", file_name)
+    if matched is not None:
+        return "{}.pdf".format(matched.group(1))
     return file_name
