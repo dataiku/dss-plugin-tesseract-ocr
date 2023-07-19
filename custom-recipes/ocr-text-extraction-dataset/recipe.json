@@ -2,7 +2,7 @@
     "meta": {
         "label": "Optical Character Recognition (OCR)",
         "description": "Extract text from PDF/JPG/JPEG/PNG/TIFF files into a dataset of filename and text.",
-        "icon": "icon-file-text-alt",
+        "icon": "icon-search",
         "displayOrderRank": 1
     },
 
