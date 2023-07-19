@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "Text extraction",
-        "description": "Extract files' text content into a dataset with columns filename and text (and error message if any)",
+        "description": "Extract text content from various files types (PDF, Docx, HTML, etc) into a dataset with columns filename and text",
         "icon": "icon-file-text-alt",
         "displayOrderRank": 2
     },
