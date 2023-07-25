@@ -3,9 +3,9 @@ from PIL import Image
 from io import BytesIO
 import numpy as np
 import logging
-from ocr_recipes_io_utils import get_input_output
-from ocr_utils import image_processing_parameters
-from ocr_constants import Constants
+from text_extraction_ocr_utils.recipes_io_utils import get_input_output
+from text_extraction_ocr_utils import image_processing_parameters
+from text_extraction_ocr_utils import Constants
 
 logger = logging.getLogger(__name__)
 

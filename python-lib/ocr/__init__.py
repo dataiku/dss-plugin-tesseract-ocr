@@ -3,12 +3,13 @@ from io import BytesIO
 import numpy as np
 import pytesseract
 import logging
-from ocr_constants import Constants
+import re
+from text_extraction_ocr_utils import Constants
 
 logger = logging.getLogger(__name__)
 
 
-def text_extraction(img_bytes, params):
+def extract_text_ocr(img_bytes, params):
     """
     extract text from bytes images using the selected OCR engine (with specified language)
     """
@@ -36,3 +37,17 @@ def text_extraction(img_bytes, params):
         raise NotImplementedError("OCR engine {} not implemented".format(params[Constants.OCR_ENGINE]))
 
     return img_text
+
+
+def get_multi_page_pdf_page_nb(file_name):
+    matched = re.fullmatch(r".*_pdf_page_(\d{5})\.jpg", file_name)
+    if matched is not None:
+        return int(matched.group(1))
+    return 1
+
+
+def get_multi_page_pdf_base_name(file_name):
+    matched = re.fullmatch(r"(.*)_pdf_page_\d{5}\.jpg", file_name)
+    if matched is not None:
+        return "{}.pdf".format(matched.group(1))
+    return file_name

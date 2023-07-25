@@ -1,8 +1,28 @@
 from io import BytesIO
-from ocr_constants import Constants
+import logging
 import os
 import pypdfium2 as pdfium
 from shutil import which
+
+
+logger = logging.getLogger(__name__)
+
+
+class Constants:
+    OCR_TYPES = ["pdf", "jpg", "jpeg", "png", "tiff"]
+    PDF_MULTI_SUFFIX = "_pdf_page_"
+    FUNCTIONS_DEF = "functions_definition"
+    PIPELINE_DEF = "pipeline_definition"
+    DPI = "dpi"
+    QUALITY = "quality"
+    RECOMBINE_PDF = "recombine_pdf"
+    LANGUAGE_TESSERACT = "language"
+    LANGUAGE_EASYOCR = "language_easyocr"
+    OCR_ENGINE = "ocr_engine"
+    DEFAULT_ENGINE = "default"
+    TESSERACT = "tesseract"
+    EASYOCR = "easyocr"
+    EASYOCR_READER = "easyocr_reader"
 
 
 def pdf_to_pil_images_iterator(pdf_bytes, dpi=None):
@@ -44,7 +64,7 @@ def image_processing_parameters(recipe_config):
     return params
 
 
-def text_extraction_parameters(recipe_config):
+def ocr_parameters(recipe_config):
     """ retrieve text extraction recipe parameters """
     params = {}
     params[Constants.RECOMBINE_PDF] = recipe_config.get(Constants.RECOMBINE_PDF, False)

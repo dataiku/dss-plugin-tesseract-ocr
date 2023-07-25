@@ -1,5 +1,5 @@
-from ocr_utils import get_default_ocr_engine
-from ocr_constants import Constants
+from text_extraction_ocr_utils import get_default_ocr_engine
+from text_extraction_ocr_utils import Constants
 
 
 OCR_ENGINES = {

@@ -1,0 +1,46 @@
+{
+    "meta": {
+        "label": "Text extraction",
+        "description": "Extract text content from various file types (PDF, Docx, HTML, etc) into a dataset with columns filename and text",
+        "icon": "icon-file-text-alt",
+        "displayOrderRank": 2
+    },
+
+    "kind": "PYTHON",
+    "selectableFromFolder": "input_folder",
+
+    "inputRoles" : [
+        {
+            "name": "input_folder",
+            "label": "Input folder",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Folder of input files",
+            "acceptsManagedFolder": true,
+            "acceptsDataset": false
+        }
+    ],
+
+    "outputRoles" : [
+        {
+            "name": "output_dataset",
+            "label": "Output dataset",
+            "arity": "UNARY",
+            "required": true,
+            "description": "Dataset of extracted text",
+            "acceptsManagedFolder": false,
+            "acceptsDataset": true
+        }
+    ],
+    "params": [
+        {
+            "name": "description",
+            "label": "",
+            "type": "SEPARATOR",
+            "description": "The Text extraction recipe is ready to use 'out of the box' - no settings required."
+        }
+    ],
+
+    "resourceKeys": []
+
+}

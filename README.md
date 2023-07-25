@@ -1,9 +1,10 @@
 # dss-plugin-tesseract-ocr
-Plugin for optical character recognition (OCR) in python using the tesseract engine
+Plugin for text extraction and optical character recognition (OCR) in python.
 
-The plugin has four components (three recipes and a notebook template):
+The plugin has five components (four recipes and a notebook template):
+- OCR recipe: extract text from images using either the tesseract or the easyOcr engine and output a dataset with a filename column and a text column. This recipe has parameters to recombine multi-page PDF (for instance those that were split into multiple images in the Image Conversion recipe) into a single text row, to specify the language used in tesseract, and to remove special charaters from the extracted text. It takes as input a folder of PDF/JPG/JPEG/PNG/TIFF files (ideally the output of the Image Conversion recipe or of the Image Processing recipe).
+- Text Extraction recipe: extract text content from various file types (using pypdfium2, docx or pandoc). It takes as input a folder of files and output a dataset with a filename column, a text column and an error column for when text failed to be extracted.
 - Image Conversion recipe: convert all types of images into jpg images and split multi-page PDF documents into multiple jpg images. It also convert images to grayscale. With advanced parameters, it is possible to set the image quality used by PIL and the DPI of images converted from PDFs.
-- Text Extraction recipe:: extract text from images using tesseract and output a dataset with a filename column and a text column. This recipe has parameters to recombine multi-page PDF (that were split into multiple images in the Image Conversion recipe) into a single text, to specify the language used in tesseract, and to remove special charaters from the extracted text. It takes as input a folder of JPG images (ideally the output of the Image Conversion recipe or of the Image Processing recipe).
 - Image Processing notebook: notebook to explore different types of image processing to improve (or not) text extraction from tesseract. Then, the functions that were tested in the notebook can be used in the Image Processing recipe.
 - Image Processing recipe: recipe to process images using functions defined by the user in the python editor area of the recipe parameter's form.
 
@@ -32,7 +33,7 @@ When you are done exploring different type of image processing functions, you ca
 
 ### tesseract
 
-Tesseract must be installed on DSS instance server:
+Tesseract must be installed on the DSS instance server in order to use the Tesseract OCR engine.
 
 #### Linux
 Tesseract is available directly from many Linux distributions.
