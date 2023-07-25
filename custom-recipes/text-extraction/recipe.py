@@ -37,10 +37,10 @@ for i, sample_file in enumerate(input_filenames):
         if not extracted_text.strip():
             logger.warning("Extracted text is empty")
 
-        rows.append({'file': sample_file, 'text': extracted_text, 'error': ""})
+        rows.append({'file': sample_file, 'text': extracted_text, 'error_message': ""})
         logger.info("Extracted text from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
     except Exception as e:
-        rows.append({'file': sample_file, 'text': "", "error": e})
+        rows.append({'file': sample_file, 'text': "", 'error_message': e})
         logger.info("Failed extracting text from file {} because: {}".format(sample_file, e))
 
 df = pd.DataFrame(rows)

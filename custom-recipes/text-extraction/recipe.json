@@ -37,7 +37,7 @@
             "name": "description",
             "label": "",
             "type": "SEPARATOR",
-            "description": "Extract text content from several file types (using pypdfium2, docx, or pandoc)."
+            "description": "The Text extraction recipe is ready to use 'out of the box' - no settings required."
         }
     ],
 
