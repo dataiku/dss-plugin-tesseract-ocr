@@ -1,7 +1,7 @@
 {
     "meta": {
-        "label": "Image conversion",
-        "description": "Convert PDF/JPG/JPEG/PNG/TIFF files into greyscale JPG images. Split multipage PDF into multiple images as well.",
+        "label": "Greyscale",
+        "description": "Convert images stored as PDF/JPG/JPEG/PNG/TIFF into greyscale JPG images. Split multipage PDF into multiple images as well.",
         "icon": "icon-picture",
         "displayOrderRank": 3
     },

@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.1.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.1) - Minor release - 2023-06
+
+- Improve recipes title and description wording
+
 ## [Version 2.1.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.0) - Feature release - 2023-06
 
 - Add a recipe to extract text content from various file types
