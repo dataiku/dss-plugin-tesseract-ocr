@@ -1,7 +1,7 @@
 {
     "meta": {
         "label": "Text extraction",
-        "description": "Extract text from documents stored as PDF/Docx/HTML/etc... into a dataset with columns filename and text.",
+        "description": "Extract text from documents stored as PDF/Docx/HTML/etc into a dataset containing filenames and text.",
         "icon": "icon-file-text-alt",
         "displayOrderRank": 1
     },
