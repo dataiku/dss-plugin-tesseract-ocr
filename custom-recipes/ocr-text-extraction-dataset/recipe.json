@@ -1,9 +1,9 @@
 {
     "meta": {
         "label": "Optical Character Recognition (OCR)",
-        "description": "Extract text from PDF/JPG/JPEG/PNG/TIFF files into a dataset of filename and text.",
+        "description": "Extract text from images stored as PDF/JPG/JPEG/PNG/TIFF into a dataset containing filenames and text.",
         "icon": "icon-search",
-        "displayOrderRank": 1
+        "displayOrderRank": 2
     },
 
     "kind": "PYTHON",
