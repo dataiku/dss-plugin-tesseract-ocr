@@ -34,10 +34,10 @@
     ],
     "params": [
         {
-            "name": "description",
-            "label": "",
-            "type": "SEPARATOR",
-            "description": "The Text extraction recipe is ready to use 'out of the box' - no settings required."
+            "name": "extract_chunks",
+            "label" : "Extract text chunks",
+            "type": "BOOLEAN",
+            "description": "Output one row per chunk alongside metadata."
         }
     ],
 
