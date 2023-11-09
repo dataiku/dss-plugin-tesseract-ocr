@@ -43,7 +43,7 @@ for i, sample_file in enumerate(input_filenames):
             if len(extracted_chunks) == 0:
                 logger.warning("Extracted chunks are empty")
 
-            rows += extracted_chunks
+            rows.extend(extracted_chunks)
             logger.info("Extracted text chunks from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
         except Exception as e:
             rows.append({'file': sample_file, 'text': "", 'error_message': e})

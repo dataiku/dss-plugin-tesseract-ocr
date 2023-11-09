@@ -2,7 +2,7 @@
 
 ## [Version 2.1.2](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.2) - Minor release - 2023-11
 
-- Extract one row of text per section alongside the section metadata
+- Add ability to extract text in chunks, with a metadata column containing section info
 
 ## [Version 2.1.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.1) - Minor release - 2023-09
 

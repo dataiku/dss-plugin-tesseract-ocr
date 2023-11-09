@@ -82,7 +82,9 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
 
 
 def extract_markdown_chunks(markdown, filename):
-    # Code largely inspired by `langchain.text_splitter.HTMLHeaderTextSplitter`
+    # This code is largely inspired by `langchain.text_splitter.MarkdownHeaderTextSplitter.split_text`
+    # https://github.com/langchain-ai/langchain/blob/v0.0.333/libs/langchain/langchain/text_splitter.py
+
     lines = markdown.split("\n")
     # Final output
     lines_with_metadata = []
@@ -134,9 +136,9 @@ def extract_markdown_chunks(markdown, filename):
 
                 break
         else:
-            if stripped_line:
+            if stripped_line:  # Add line to current_text when no header was found
                 current_text.append(stripped_line)
-            elif current_text:
+            elif current_text:  # Add the previous line to the lines_with_metadata if there is a new paragraph (stripped_line is empty) 
                 lines_with_metadata.append(
                     {
                         "text": "\n".join(current_text),
