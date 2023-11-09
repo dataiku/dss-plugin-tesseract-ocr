@@ -60,7 +60,13 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
         return [
-            {'file': filename, 'text': page.get_textpage().get_text_range(), 'id': page_id + 1, 'metadata': page_id + 1, 'error_message': ""}
+            {
+                'file': filename,
+                'text': page.get_textpage().get_text_range(),
+                'id': page_id + 1,
+                'metadata': {"page": page_id + 1},
+                'error_message': ""
+            }
             for page_id, page in enumerate(pdf_pages)
         ]
     elif extension == "doc":
@@ -157,7 +163,7 @@ def extract_markdown_chunks(markdown, filename):
     chunks = []
     for line_id, line in enumerate(lines_with_metadata):
         # Header path is "Header X" / "Sub Header Y" / "Sub Sub Header Z"
-        header_path = " / ".join(['"{}"'.format(header) for header in line["metadata"].values()])
-        chunks.append({"file": filename, "text": line["text"], "id": line_id + 1, "metadata": header_path, "error_message": ""})
+        header_metadata = {"headers": list(line["metadata"].values())}
+        chunks.append({"file": filename, "text": line["text"], "id": line_id + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
