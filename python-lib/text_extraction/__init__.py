@@ -144,14 +144,6 @@ def extract_markdown_chunks(markdown, filename):
         else:
             if stripped_line:  # Add line to current_text when no header was found
                 current_text.append(stripped_line)
-            elif current_text:  # Add the previous line to the lines_with_metadata if there is a new paragraph (stripped_line is empty) 
-                lines_with_metadata.append(
-                    {
-                        "text": "\n".join(current_text),
-                        "metadata": current_metadata.copy(),
-                    }
-                )
-                current_text.clear()
 
         current_metadata = initial_metadata.copy()
 
