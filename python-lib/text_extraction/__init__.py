@@ -88,6 +88,10 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
 
 
 def extract_markdown_chunks(markdown, filename):
+    """
+    Returns a list of dictionary for each chunk and their metadata found in the markdown.
+    Chunks are separated using their header path (the minimum header level used is 3). 
+    """
     # This code is largely inspired by `langchain.text_splitter.MarkdownHeaderTextSplitter.split_text`
     # https://github.com/langchain-ai/langchain/blob/v0.0.333/libs/langchain/langchain/text_splitter.py
 
@@ -154,7 +158,7 @@ def extract_markdown_chunks(markdown, filename):
 
     chunks = []
     for line_id, line in enumerate(lines_with_metadata):
-        # Header path is "Header X" / "Sub Header Y" / "Sub Sub Header Z"
+        # Header metadata is encoded as {"headers": ["header 1", "header 2", "header 3"]}
         header_metadata = {"headers": list(line["metadata"].values())}
         chunks.append({"file": filename, "text": line["text"], "id": line_id + 1, "metadata": header_metadata, "error_message": ""})
 
