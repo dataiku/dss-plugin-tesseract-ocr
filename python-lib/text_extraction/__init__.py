@@ -118,6 +118,7 @@ def extract_markdown_chunks(markdown, filename):
     for line in lines:
         stripped_line = line.rstrip()
         if not stripped_line.startswith(("    ", "\t")):
+            # Do not remove tab or 4-spaces as they signal code blocks
             stripped_line = line.lstrip()
 
         if stripped_line.startswith("```"):
@@ -133,7 +134,7 @@ def extract_markdown_chunks(markdown, filename):
 
         # Check each line against each of the header types (e.g., #, ##), header_level is the number of '#'
         for header_level in range(1, 4):
-            # Check if line starts with a header (tab/4-spaces means code block) that we intend to split on
+            # Check if line starts with a header that we intend to split on
             if stripped_line.startswith("#" * header_level) and (
                 # Header with no text OR header is followed by space are valid conditions that sep is being used a header
                 len(stripped_line) == header_level or stripped_line[header_level] == " "
