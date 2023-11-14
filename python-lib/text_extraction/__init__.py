@@ -71,9 +71,11 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
         ]
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
+    elif extension == "md":
+        return extract_markdown_chunks(file_bytes.decode(), filename)
     else:
         if not with_pandoc:
-            raise ValueError("pandoc is required to extract chunks from files (except for PDFs).")
+            raise ValueError("pandoc is required to extract chunks from files (except for PDFs and markdown).")
 
         try:
             temporary_job_folder = os.getcwd()
@@ -83,17 +85,22 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
         except Exception as e:
             raise ValueError("Cannot convert file into markdown using pandoc because: {}".format(e))
     
-        chunks = extract_markdown_chunks(markdown, filename)
-        return chunks
+        return extract_markdown_chunks(markdown, filename)
 
 
 def extract_markdown_chunks(markdown, filename):
     """
-    Returns a list of dictionary for each chunk and their metadata found in the markdown.
-    Chunks are separated using their header path (the minimum header level used is 3). 
+    Extracts chunks from a markdown document. 
+    
+    The document is chunked according to its headers. Headers with levels 4+ are considered
+    as part of the text.
+
+    Returns a list of dictionaries, where each dictionary contains a chunk data and 
+    corresponding metadata.
+
+    This code is largely inspired by `langchain.text_splitter.MarkdownHeaderTextSplitter.split_text`
+    https://github.com/langchain-ai/langchain/blob/v0.0.333/libs/langchain/langchain/text_splitter.py#L376
     """
-    # This code is largely inspired by `langchain.text_splitter.MarkdownHeaderTextSplitter.split_text`
-    # https://github.com/langchain-ai/langchain/blob/v0.0.333/libs/langchain/langchain/text_splitter.py
 
     lines = markdown.split("\n")
     # Final output
@@ -106,8 +113,21 @@ def extract_markdown_chunks(markdown, filename):
     header_stack = []
     initial_metadata = {}
 
+    in_code_block = False
+
     for line in lines:
         stripped_line = line.strip()
+
+        if stripped_line.startswith("```"):
+            # code block in one row
+            if stripped_line.count("```") >= 2:
+                in_code_block = False
+            else:
+                in_code_block = not in_code_block
+
+        if in_code_block:
+            current_text.append(stripped_line)
+            continue
 
         # Check each line against each of the header types (e.g., #, ##), header_level is the number of '#'
         for header_level in range(1, 4):
