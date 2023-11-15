@@ -159,18 +159,19 @@ def extract_markdown_chunks(markdown, filename):
 
                 # Add the previous line to the lines_with_metadata only if current_text is not empty
                 if current_text:
-                    lines_with_metadata.append(
-                        {
-                            "text": "\n".join(current_text),
-                            "metadata": current_metadata.copy(),
-                        }
-                    )
+                    if any(current_text):  # Add only chunks that contain at least one non-empty element
+                        lines_with_metadata.append(
+                            {
+                                "text": "\n".join(current_text),
+                                "metadata": current_metadata.copy(),
+                            }
+                        )
                     current_text.clear()
 
                 break
         else:
-            if stripped_line:  # Add line to current_text when no header was found
-                current_text.append(stripped_line)
+            # Add line to current_text when no header was found
+            current_text.append(stripped_line)
 
         current_metadata = initial_metadata.copy()
 
