@@ -41,7 +41,6 @@ for i, sample_file in enumerate(input_filenames):
             extracted_chunks = extract_text_chunks(sample_file, file_bytes, suffix, with_pandoc)
 
             if len(extracted_chunks) == 0:
-                logger.warning("Extracted chunks are empty")
                 raise ValueError("Extracted chunks are empty")
 
             rows.extend(extracted_chunks)

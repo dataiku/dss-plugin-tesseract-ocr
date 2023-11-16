@@ -118,8 +118,7 @@ def extract_markdown_chunks(markdown, filename):
     for line in lines:
         stripped_line = line
         if not stripped_line.startswith(("    ", "\t")):
-            # Do not remove tab or 4-spaces as they signal code blocks
-            # Only lines that start with less than 4 spaces can be header or code blocks
+            # Header lines can only start with 0 to 3 spaces
             stripped_line = line.lstrip()
 
         if stripped_line.startswith(("```", "~~~")):
@@ -130,7 +129,7 @@ def extract_markdown_chunks(markdown, filename):
                 in_code_block = not in_code_block
 
         if in_code_block:
-            current_text.append(stripped_line)
+            current_text.append(line)
             continue
 
         # Check each line against each of the header types (e.g., #, ##), header_level is the number of '#'
