@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 2.1.2](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.2) - Minor release - 2023-11
+## [Version 2.2.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.2.0) - Minor release - 2023-11
 
 - Add ability to extract text in chunks, with a metadata column containing section info
 
