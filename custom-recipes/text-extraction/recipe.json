@@ -37,7 +37,7 @@
             "name": "extract_chunks",
             "label" : "Extract text chunks",
             "type": "BOOLEAN",
-            "description": "Output one row per chunk alongside metadata."
+            "description": "Output one row by unit of document. A unit can be a page in a PDF file, a section in a Markdown file..."
         }
     ],
 
