@@ -89,6 +89,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
             temporary_job_folder = os.getcwd()
             with tempfile.NamedTemporaryFile(dir=temporary_job_folder, suffix=".{}".format(extension)) as tmp:
                 tmp.write(file_bytes)
+                # 'gfm' is for markdown_github
                 markdown = pypandoc.convert_file(tmp.name, to="gfm", format=extension)
         except Exception as e:
             raise ValueError("Cannot convert file into markdown using pandoc because: {}".format(e))
