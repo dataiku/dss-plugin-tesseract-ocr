@@ -71,6 +71,14 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
         ]
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
+    elif extension == "txt":
+        return [{
+            'file': filename,
+            'text': file_bytes.decode(),
+            'id': 1,
+            'metadata': "",
+            'error_message': ""
+        }]
     elif extension == "md":
         return extract_markdown_chunks(file_bytes.decode(), filename)
     else:
@@ -183,7 +191,8 @@ def extract_markdown_chunks(markdown, filename):
     chunks = []
     for line_id, line in enumerate(lines_with_metadata):
         # Header metadata is encoded as {"headers": ["header 1", "header 2", "header 3"]}
-        header_metadata = {"headers": list(line["metadata"].values())}
+        headers = list(line["metadata"].values())
+        header_metadata = {"headers": headers} if len(headers) > 0 else ""
         chunks.append({"file": filename, "text": line["text"], "id": line_id + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
