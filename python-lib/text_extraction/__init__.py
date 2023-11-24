@@ -71,30 +71,35 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
         ]
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
-    elif extension == "txt":
-        return [{
-            'file': filename,
-            'text': file_bytes.decode(),
-            'id': 1,
-            'metadata': "",
-            'error_message': ""
-        }]
     elif extension == "md":
         return extract_markdown_chunks(file_bytes.decode(), filename)
     else:
-        if not with_pandoc:
-            raise ValueError("pandoc is required to extract chunks from files (except for PDFs and markdown).")
-
         try:
+            if not with_pandoc:
+                raise ValueError("pandoc is required to extract chunks from files (except for PDFs and markdown).")
+
             temporary_job_folder = os.getcwd()
             with tempfile.NamedTemporaryFile(dir=temporary_job_folder, suffix=".{}".format(extension)) as tmp:
                 tmp.write(file_bytes)
                 # 'gfm' is for markdown_github, a simplified form of markdown for more consistent results across OSs
                 markdown = pypandoc.convert_file(tmp.name, to="gfm", format=extension)
+
+                if not markdown.strip():
+                    raise ValueError("Content is empty after converting to markdown.")
+
+                return extract_markdown_chunks(markdown, filename)
+
         except Exception as e:
-            raise ValueError("Cannot convert file into markdown using pandoc because: {}".format(e))
-    
-        return extract_markdown_chunks(markdown, filename)
+            logger.warning("Failed to extract chunks, fallback to text content extraction: {}".format(e))
+
+            text = extract_text_content(file_bytes, extension, with_pandoc)
+            return [{
+                'file': filename,
+                'text': text,
+                'id': 1,
+                'metadata': "",
+                'error_message': ""
+            }]
 
 
 def extract_markdown_chunks(markdown, filename):
