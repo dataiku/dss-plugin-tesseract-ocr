@@ -63,7 +63,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
             {
                 'file': filename,
                 'text': page.get_textpage().get_text_range(),
-                'id': page_id + 1,
+                'chunk_id': page_id + 1,
                 'metadata': {"page": page_id + 1},
                 'error_message': ""
             }
@@ -96,7 +96,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
             return [{
                 'file': filename,
                 'text': text,
-                'id': 1,
+                'chunk_id': 1,
                 'metadata': "",
                 'error_message': ""
             }]
@@ -199,6 +199,6 @@ def extract_markdown_chunks(markdown, filename):
         # Header metadata is encoded as {"headers": ["header 1", "header 2", "header 3"]}
         headers = list(line["metadata"].values())
         header_metadata = {"headers": headers} if len(headers) > 0 else ""
-        chunks.append({"file": filename, "text": line["text"], "id": line_id + 1, "metadata": header_metadata, "error_message": ""})
+        chunks.append({"file": filename, "text": line["text"], "chunk_id": line_id + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
