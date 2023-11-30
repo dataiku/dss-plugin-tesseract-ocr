@@ -38,6 +38,12 @@
             "label" : "Extract text chunks",
             "type": "BOOLEAN",
             "description": "Output one row by unit of document. A unit can be a page in a PDF file, a section in a Markdown file..."
+        },
+        {
+            "name": "natural_format",
+            "label" : "Metadata in natural format",
+            "type": "BOOLEAN",
+            "description": "Output the metadata in a natural format instead of JSON."
         }
     ],
 

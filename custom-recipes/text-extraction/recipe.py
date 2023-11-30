@@ -6,6 +6,7 @@ from time import perf_counter
 from dataiku.customrecipe import get_recipe_config
 from text_extraction_ocr_utils.recipes_io_utils import get_input_output
 from text_extraction_ocr_utils import text_extraction_parameters
+from text_extraction_ocr_utils import Constants
 from text_extraction import extract_text_content
 from text_extraction import extract_text_chunks
 from text_extraction import download_pandoc_binaries
@@ -36,9 +37,9 @@ for i, sample_file in enumerate(input_filenames):
     with input_folder.get_download_stream(sample_file) as stream:
         file_bytes = stream.read()
     
-    if params["extract_chunks"]:
+    if params[Constants.EXTRACT_CHUNKS]:
         try:
-            extracted_chunks = extract_text_chunks(sample_file, file_bytes, suffix, with_pandoc)
+            extracted_chunks = extract_text_chunks(sample_file, file_bytes, suffix, with_pandoc, params[Constants.NATURAL_FORMAT])
 
             if len(extracted_chunks) == 0:
                 raise ValueError("Extracted chunks are empty")
@@ -46,7 +47,7 @@ for i, sample_file in enumerate(input_filenames):
             rows.extend(extracted_chunks)
             logger.info("Extracted text chunks from {}/{} files (in {:.2f} seconds)".format(i+1, total_files, perf_counter() - start))
         except Exception as e:
-            rows.append({'file': sample_file, 'text': "", 'error_message': e})
+            rows.append({'file': sample_file, 'text': "", 'chunk_id': "", 'metadata': "", 'error_message': e})
             logger.info("Failed extracting text from file {} because: {}".format(sample_file, e))
     else:
         try:

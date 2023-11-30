@@ -56,7 +56,7 @@ def extract_text_content(file_bytes, extension, with_pandoc):
         return text
 
 
-def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
+def extract_text_chunks(filename, file_bytes, extension, with_pandoc, natural_format):
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
         return [
@@ -64,7 +64,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
                 'file': filename,
                 'text': page.get_textpage().get_text_range(),
                 'chunk_id': page_id + 1,
-                'metadata': {"page": page_id + 1},
+                'metadata': "Page {}".format(page_id + 1) if natural_format else {"page": page_id + 1},
                 'error_message': ""
             }
             for page_id, page in enumerate(pdf_pages)
@@ -72,7 +72,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
     elif extension == "md":
-        return extract_markdown_chunks(file_bytes.decode(), filename)
+        return extract_markdown_chunks(file_bytes.decode(), filename, natural_format)
     else:
         try:
             if not with_pandoc:
@@ -87,7 +87,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
                 if not markdown.strip():
                     raise ValueError("Content is empty after converting to markdown.")
 
-                return extract_markdown_chunks(markdown, filename)
+                return extract_markdown_chunks(markdown, filename, natural_format)
 
         except Exception as e:
             logger.warning("Failed to extract chunks, fallback to text content extraction: {}".format(e))
@@ -102,7 +102,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc):
             }]
 
 
-def extract_markdown_chunks(markdown, filename):
+def extract_markdown_chunks(markdown, filename, natural_format):
     """
     Extracts chunks from a markdown document. 
     
@@ -196,9 +196,11 @@ def extract_markdown_chunks(markdown, filename):
 
     chunks = []
     for line_id, line in enumerate(lines_with_metadata):
-        # Header metadata is encoded as {"headers": ["header 1", "header 2", "header 3"]}
+        # Header metadata is encoded as {"headers": ["header 1", "header 2", "header 3"]} or "header 1 > header 2 > header 3" in natural format
         headers = list(line["metadata"].values())
-        header_metadata = {"headers": headers} if len(headers) > 0 else ""
+        header_metadata = ""
+        if len(headers) > 0:
+            header_metadata = " > ".join(headers) if natural_format else {"headers": headers}
         chunks.append({"file": filename, "text": line["text"], "chunk_id": line_id + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
