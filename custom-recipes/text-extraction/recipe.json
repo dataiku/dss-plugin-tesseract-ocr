@@ -40,10 +40,11 @@
             "description": "Output one row by unit of document. A unit can be a page in a PDF file, a section in a Markdown file..."
         },
         {
-            "name": "natural_format",
-            "label" : "Metadata in natural format",
+            "name": "metadata_as_plain_text",
+            "label" : "Metadata in plain text",
             "type": "BOOLEAN",
-            "description": "Output the metadata in a natural format instead of JSON."
+            "description": "Output the metadata in plain text instead of JSON.",
+            "visibilityCondition" : "model.extract_chunks"
         }
     ],
 

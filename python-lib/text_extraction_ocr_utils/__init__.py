@@ -24,7 +24,7 @@ class Constants:
     EASYOCR = "easyocr"
     EASYOCR_READER = "easyocr_reader"
     EXTRACT_CHUNKS = "extract_chunks"
-    NATURAL_FORMAT = "natural_format"
+    METADATA_AS_PLAIN_TEXT = "metadata_as_plain_text"
 
 
 def pdf_to_pil_images_iterator(pdf_bytes, dpi=None):
@@ -102,7 +102,7 @@ def text_extraction_parameters(recipe_config):
     """ retrieve image processing recipe parameters """
     params = {}
     params[Constants.EXTRACT_CHUNKS] = recipe_config.get(Constants.EXTRACT_CHUNKS, False)
-    params[Constants.NATURAL_FORMAT] = recipe_config.get(Constants.NATURAL_FORMAT, False)
+    params[Constants.METADATA_AS_PLAIN_TEXT] = recipe_config.get(Constants.METADATA_AS_PLAIN_TEXT, False)
     return params
 
 
