@@ -34,10 +34,17 @@
     ],
     "params": [
         {
-            "name": "description",
-            "label": "",
-            "type": "SEPARATOR",
-            "description": "The Text extraction recipe is ready to use 'out of the box' - no settings required."
+            "name": "extract_chunks",
+            "label" : "Extract text chunks",
+            "type": "BOOLEAN",
+            "description": "Output one row by unit of document. A unit can be a page in a PDF file or a section in a DOCX, HTML, Markdown, etc."
+        },
+        {
+            "name": "metadata_as_plain_text",
+            "label" : "Metadata in plain text",
+            "type": "BOOLEAN",
+            "description": "Output the metadata in plain text instead of JSON.",
+            "visibilityCondition" : "model.extract_chunks"
         }
     ],
 

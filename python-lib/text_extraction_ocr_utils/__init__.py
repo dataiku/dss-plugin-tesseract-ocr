@@ -23,6 +23,8 @@ class Constants:
     TESSERACT = "tesseract"
     EASYOCR = "easyocr"
     EASYOCR_READER = "easyocr_reader"
+    EXTRACT_CHUNKS = "extract_chunks"
+    METADATA_AS_PLAIN_TEXT = "metadata_as_plain_text"
 
 
 def pdf_to_pil_images_iterator(pdf_bytes, dpi=None):
@@ -93,6 +95,14 @@ def ocr_parameters(recipe_config):
             verbose=False
         )
 
+    return params
+
+
+def text_extraction_parameters(recipe_config):
+    """ retrieve image processing recipe parameters """
+    params = {}
+    params[Constants.EXTRACT_CHUNKS] = recipe_config.get(Constants.EXTRACT_CHUNKS, False)
+    params[Constants.METADATA_AS_PLAIN_TEXT] = recipe_config.get(Constants.METADATA_AS_PLAIN_TEXT, False)
     return params
 
 

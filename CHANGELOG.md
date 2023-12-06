@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.2.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.2.0) - Minor release - 2023-12
+
+- Add ability to extract text in chunks, with a metadata column containing section info
+
 ## [Version 2.1.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.1.1) - Minor release - 2023-09
 
 - Improve recipes title and description
