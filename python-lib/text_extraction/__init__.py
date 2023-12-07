@@ -59,16 +59,21 @@ def extract_text_content(file_bytes, extension, with_pandoc):
 def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_as_plain_text):
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
-        return [
-            {
-                'file': filename,
-                'text': page.get_textpage().get_text_range(),
-                'chunk_id': page_id + 1,
-                'metadata': "Page {}".format(page_id + 1) if metadata_as_plain_text else {"page": page_id + 1},
-                'error_message': ""
-            }
-            for page_id, page in enumerate(pdf_pages)
-        ]
+        outline = list(pdf_pages.get_toc())
+        if len(outline) == 0:
+            # only extract page numbers when no outline is found
+            return [
+                {
+                    'file': filename,
+                    'text': page.get_textpage().get_text_range(),
+                    'chunk_id': page_id + 1,
+                    'metadata': "Page {}".format(page_id + 1) if metadata_as_plain_text else {"page": page_id + 1},
+                    'error_message': ""
+                }
+                for page_id, page in enumerate(pdf_pages)
+            ]
+        else:
+            return extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text)
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
     elif extension == "md":
@@ -202,5 +207,51 @@ def extract_markdown_chunks(markdown, filename, metadata_as_plain_text):
         if len(headers) > 0:
             header_metadata = " > ".join(headers) if metadata_as_plain_text else {"headers": headers}
         chunks.append({"file": filename, "text": line["text"], "chunk_id": line_id + 1, "metadata": header_metadata, "error_message": ""})
+
+    return chunks
+
+
+def extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position):
+    """
+    Extract text between a starting vertical position in a starting page and an ending vertical position in an ending page.
+    """
+    text = ""
+    while start_page < end_page:
+        text += pdf_pages[start_page].get_textpage().get_text_bounded(top=start_vertical_position)
+        start_page += 1
+        start_vertical_position = None
+    text += pdf_pages[start_page].get_textpage().get_text_bounded(top=start_vertical_position, bottom=end_vertical_position)
+    return text
+
+
+def extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
+    """
+    Extract chunks from a PDF outline
+    """
+    chunks = []
+    headers = []
+    for outline_id in range(len(outline)):
+        title = outline[outline_id].title
+        level = outline[outline_id].level
+        start_page = outline[outline_id].page_index
+        start_vertical_position = outline[outline_id].view_pos[1]
+
+        # for the last header, extract until the end of the PDF file
+        last_header = (outline_id == len(outline) - 1)
+        end_page = outline[outline_id+1].page_index if not last_header else len(pdf_pages)-1
+        end_vertical_position = outline[outline_id+1].view_pos[1] if not last_header else None
+
+        # headers contains the list of the current parent headers and the current header 
+        if len(headers) < level + 1:  # going into a child header
+            headers.append(title)
+        elif len(headers) == level + 1:  # staying at the same header level
+            headers[level] = title
+        else:  # going back to a higher header level
+            headers = headers[:level] + [title]
+
+        text = extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position)
+
+        header_metadata = " > ".join(headers) if metadata_as_plain_text else {"headers": headers.copy()}
+        chunks.append({"file": filename, "text": text, "chunk_id": outline_id + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
