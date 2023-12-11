@@ -56,11 +56,11 @@ def extract_text_content(file_bytes, extension, with_pandoc):
         return text
 
 
-def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_as_plain_text):
+def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_as_plain_text, extract_pdf_outline):
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
         outline = list(pdf_pages.get_toc())
-        if len(outline) == 0:
+        if len(outline) == 0 or not extract_pdf_outline:
             # only extract page numbers when no outline is found
             return [
                 {
@@ -73,11 +73,11 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
                 for page_id, page in enumerate(pdf_pages)
             ]
         else:
-            return extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text)
+            return _extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text)
     elif extension == "doc":
         raise ValueError("'doc' files are not supported, try to convert them to docx.")
     elif extension == "md":
-        return extract_markdown_chunks(file_bytes.decode(), filename, metadata_as_plain_text)
+        return _extract_markdown_chunks(file_bytes.decode(), filename, metadata_as_plain_text)
     else:
         try:
             if not with_pandoc:
@@ -92,7 +92,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
                 if not markdown.strip():
                     raise ValueError("Content is empty after converting to markdown.")
 
-                return extract_markdown_chunks(markdown, filename, metadata_as_plain_text)
+                return _extract_markdown_chunks(markdown, filename, metadata_as_plain_text)
 
         except Exception as e:
             logger.warning("Failed to extract chunks, fallback to text content extraction: {}".format(e))
@@ -107,7 +107,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
             }]
 
 
-def extract_markdown_chunks(markdown, filename, metadata_as_plain_text):
+def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text):
     """
     Extracts chunks from a markdown document. 
     
@@ -211,7 +211,7 @@ def extract_markdown_chunks(markdown, filename, metadata_as_plain_text):
     return chunks
 
 
-def extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position):
+def _extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position):
     """
     Extract text between a starting vertical position in a starting page and an ending vertical position in an ending page.
     """
@@ -224,7 +224,7 @@ def extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, 
     return text
 
 
-def extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
+def _extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
     """
     Extract chunks from a PDF outline
     """
@@ -249,7 +249,7 @@ def extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
         else:  # going back to a higher header level
             headers = headers[:level] + [title]
 
-        text = extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position)
+        text = _extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position)
 
         header_metadata = " > ".join(headers) if metadata_as_plain_text else {"headers": headers.copy()}
         chunks.append({"file": filename, "text": text, "chunk_id": outline_id + 1, "metadata": header_metadata, "error_message": ""})

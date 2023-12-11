@@ -45,6 +45,14 @@
             "type": "BOOLEAN",
             "description": "Output the metadata in plain text instead of JSON.",
             "visibilityCondition" : "model.extract_chunks"
+        },
+        {
+            "name": "extract_pdf_outline",
+            "label" : "Extract PDF outline",
+            "type": "BOOLEAN",
+            "description": "Use PDF bookmarks to extract text chunks. May not be suitable for all PDF files. If disabled, only extract PDF page number.",
+            "defaultValue": true,
+            "visibilityCondition" : "model.extract_chunks"
         }
     ],
 
