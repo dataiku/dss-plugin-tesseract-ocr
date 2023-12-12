@@ -60,7 +60,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
     if extension == "pdf":
         pdf_pages = pdfium.PdfDocument(file_bytes)
         outline = list(pdf_pages.get_toc())
-        if len(outline) < 2 or not use_pdf_bookmarks:
+        if len(outline) == 0 or not use_pdf_bookmarks:
             # only extract page numbers when no outline is found
             return [
                 {
