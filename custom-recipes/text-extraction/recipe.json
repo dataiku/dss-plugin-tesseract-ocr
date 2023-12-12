@@ -50,7 +50,7 @@
             "name": "use_pdf_bookmarks",
             "label" : "Use PDF bookmarks",
             "type": "BOOLEAN",
-            "description": "Use PDF bookmarks to extract text chunks. May not be suitable for all PDF files. If disabled, PDF files will be chunked by page.",
+            "description": "For chunk extraction. May not work correctly for some PDFs (e.g. multi-column). If disabled, chunks by page.",
             "defaultValue": true,
             "visibilityCondition" : "model.extract_chunks"
         }
