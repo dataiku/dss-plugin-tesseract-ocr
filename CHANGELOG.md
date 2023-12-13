@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.2.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.3.0) - Minor release - 2023-12
+
+- Add ability to extract text chunks from PDF using bookmarks positions
+
 ## [Version 2.2.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.2.0) - Minor release - 2023-12
 
 - Add ability to extract text in chunks, with a metadata column containing section info

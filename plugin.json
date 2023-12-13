@@ -1,6 +1,6 @@
 {
     "id": "tesseract-ocr",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "meta": {
         "label": "Text extraction and OCR",
         "description": "Extract text from documents & images.",
