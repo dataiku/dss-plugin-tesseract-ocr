@@ -40,18 +40,18 @@
             "description": "Output one row by unit of document. A unit can be a page in a PDF file or a section in a DOCX, HTML, Markdown, etc."
         },
         {
-            "name": "metadata_as_plain_text",
-            "label" : "Metadata in plain text",
-            "type": "BOOLEAN",
-            "description": "Output the metadata in plain text instead of JSON.",
-            "visibilityCondition" : "model.extract_chunks"
-        },
-        {
             "name": "use_pdf_bookmarks",
             "label" : "Use PDF bookmarks",
             "type": "BOOLEAN",
             "description": "For chunk extraction. May not work correctly for some PDFs (e.g. multi-column). If disabled, chunks by page.",
             "defaultValue": true,
+            "visibilityCondition" : "model.extract_chunks"
+        },
+        {
+            "name": "metadata_as_plain_text",
+            "label" : "Metadata in plain text",
+            "type": "BOOLEAN",
+            "description": "Output the metadata in plain text instead of JSON.",
             "visibilityCondition" : "model.extract_chunks"
         }
     ],

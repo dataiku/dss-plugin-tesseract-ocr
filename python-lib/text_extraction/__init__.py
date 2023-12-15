@@ -230,6 +230,12 @@ def _extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
     """
     chunks = []
     headers = []
+
+    # extract text before first header and add it only if the text is not empty
+    text = _extract_text_from_pdf_bound(pdf_pages, start_page=0, start_vertical_position=None, end_page=0, end_vertical_position=outline[0].view_pos[1])
+    if text.strip():
+        chunks.append({"file": filename, "text": text, "chunk_id": 1, "metadata": "", "error_message": ""})
+
     for outline_id in range(len(outline)):
         title = outline[outline_id].title
         level = outline[outline_id].level
@@ -252,6 +258,6 @@ def _extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text):
         text = _extract_text_from_pdf_bound(pdf_pages, start_page, start_vertical_position, end_page, end_vertical_position)
 
         header_metadata = " > ".join(headers) if metadata_as_plain_text else {"headers": headers.copy()}
-        chunks.append({"file": filename, "text": text, "chunk_id": outline_id + 1, "metadata": header_metadata, "error_message": ""})
+        chunks.append({"file": filename, "text": text, "chunk_id": len(chunks) + 1, "metadata": header_metadata, "error_message": ""})
 
     return chunks
