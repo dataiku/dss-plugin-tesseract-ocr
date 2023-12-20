@@ -39,7 +39,7 @@ for i, sample_file in enumerate(input_filenames):
     
     if params[Constants.EXTRACT_CHUNKS]:
         try:
-            extracted_chunks = extract_text_chunks(sample_file, file_bytes, suffix, with_pandoc, params[Constants.METADATA_AS_PLAIN_TEXT])
+            extracted_chunks = extract_text_chunks(sample_file, file_bytes, suffix, with_pandoc, params[Constants.METADATA_AS_PLAIN_TEXT], params[Constants.USE_PDF_BOOKMARKS])
 
             if len(extracted_chunks) == 0:
                 raise ValueError("Extracted chunks are empty")
