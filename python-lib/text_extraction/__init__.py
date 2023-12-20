@@ -80,12 +80,10 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
             else:
                 return _extract_pdf_chunks(filename, pdf_pages, outline, metadata_as_plain_text)
         elif extension == "md":
-            if not with_pandoc:
-                raise ValueError("pandoc is required to extract chunks from markdown files.")
-            return _extract_markdown_chunks(file_bytes.decode(), filename, metadata_as_plain_text, markdown_format="md")
+            return _extract_markdown_chunks(file_bytes.decode(), filename, metadata_as_plain_text)
         else:
             if not with_pandoc:
-                raise ValueError("pandoc is required to extract chunks from files (except for PDFs).")
+                raise ValueError("pandoc is required to extract chunks from files (except for PDF and markdown).")
             temporary_job_folder = os.getcwd()
             with tempfile.NamedTemporaryFile(dir=temporary_job_folder, suffix=".{}".format(extension)) as tmp:
                 tmp.write(file_bytes)
@@ -95,7 +93,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
                 if not markdown.strip():
                     raise ValueError("Content is empty after converting to markdown.")
 
-                return _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, markdown_format="gfm")
+                return _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, convert_text_blocks=True, markdown_format="gfm")
     except Exception as e:
         logger.warning("Failed to extract chunks, falling back to text content extraction: {}".format(e))
         text = extract_text_content(file_bytes, extension, with_pandoc)
@@ -108,7 +106,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
         }]
 
 
-def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, markdown_format):
+def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, convert_text_blocks=False, markdown_format="gfm"):
     """
     Extracts chunks from a markdown document. 
     
@@ -169,10 +167,11 @@ def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, markdow
                         initial_metadata.pop(popped_header["level"])
 
                 # Push the current header to the stack
-                header = {
-                    "level": header_level,
-                    "data": pypandoc.convert_text(stripped_line, to="plain", format=markdown_format).strip()
-                }
+                if convert_text_blocks:
+                    data = pypandoc.convert_text(stripped_line, to="plain", format=markdown_format).strip()
+                else:
+                    data = stripped_line[header_level :].strip()
+                header = {"level": header_level, "data": data}
                 header_stack.append(header)
                 # Update initial_metadata with the current header
                 initial_metadata[header_level] = header["data"]
@@ -180,12 +179,11 @@ def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, markdow
                 # Add the previous line to the lines_with_metadata only if current_text is not empty
                 if current_text:
                     if any(current_text):  # Add only chunks that contain at least one non-empty element
-                        lines_with_metadata.append(
-                            {
-                                "text": pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip(),
-                                "metadata": current_metadata.copy(),
-                            }
-                        )
+                        if convert_text_blocks:
+                            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip(),
+                        else:
+                            text = "\n".join(current_text)
+                        lines_with_metadata.append({"text": text, "metadata": current_metadata.copy()})
                     current_text.clear()
 
                 break
@@ -196,9 +194,11 @@ def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, markdow
         current_metadata = initial_metadata.copy()
 
     if current_text:
-        lines_with_metadata.append(
-            {"text": pypandoc.convert_text("\n".join(current_text).strip(), to="plain", format=markdown_format), "metadata": current_metadata}
-        )
+        if convert_text_blocks:
+            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip(),
+        else:
+            text = "\n".join(current_text)
+        lines_with_metadata.append({"text": text, "metadata": current_metadata})
 
     chunks = []
     for line_id, line in enumerate(lines_with_metadata):
