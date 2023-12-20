@@ -180,7 +180,7 @@ def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, convert
                 if current_text:
                     if any(current_text):  # Add only chunks that contain at least one non-empty element
                         if convert_text_blocks:
-                            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip(),
+                            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip()
                         else:
                             text = "\n".join(current_text)
                         lines_with_metadata.append({"text": text, "metadata": current_metadata.copy()})
@@ -195,7 +195,7 @@ def _extract_markdown_chunks(markdown, filename, metadata_as_plain_text, convert
 
     if current_text:
         if convert_text_blocks:
-            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip(),
+            text = pypandoc.convert_text("\n".join(current_text), to="plain", format=markdown_format).strip()
         else:
             text = "\n".join(current_text)
         lines_with_metadata.append({"text": text, "metadata": current_metadata})
