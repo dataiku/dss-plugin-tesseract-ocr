@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.3.2](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.3.2) - Patch release - 2024-03
+
+- Fix reading temporary file for pypandoc conversion
+
 ## [Version 2.3.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.3.1) - Patch release - 2024-01
 
 - Fix text extraction from html files with line wraps when chunking
