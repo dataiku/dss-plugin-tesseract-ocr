@@ -45,6 +45,7 @@ def extract_text_content(file_bytes, extension, with_pandoc):
                 temporary_job_folder = os.getcwd()
                 with tempfile.NamedTemporaryFile(dir=temporary_job_folder, suffix=".{}".format(extension)) as tmp:
                     tmp.write(file_bytes)
+                    tmp.flush()
                     text = pypandoc.convert_file(tmp.name, to="plain", format=extension)
 
             except Exception as e:
@@ -87,6 +88,7 @@ def extract_text_chunks(filename, file_bytes, extension, with_pandoc, metadata_a
             temporary_job_folder = os.getcwd()
             with tempfile.NamedTemporaryFile(dir=temporary_job_folder, suffix=".{}".format(extension)) as tmp:
                 tmp.write(file_bytes)
+                tmp.flush()
                 # 'gfm' is for markdown_github, a simplified form of markdown for more consistent results across OSes
                 # We use the `--wrap none` argument to avoid line wraps in the conversion output, that could lead to
                 # incorrect markdown chunk extraction
