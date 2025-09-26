@@ -1,6 +1,7 @@
 import dataiku
 from dataiku.customrecipe import get_input_names_for_role
 from dataiku.customrecipe import get_output_names_for_role
+from dataiku.core import flow
 
 
 def get_input_output(input_type='dataset', output_type='dataset'):
@@ -21,5 +22,9 @@ def get_input_output(input_type='dataset', output_type='dataset'):
     return input_obj, output_obj
 
 def list_input_paths(input_folder):
-    partition = dataiku.get_flow_variables().get("DKU_SRC_label", "")
-    return input_folder.list_paths_in_partition(partition)
+    partitions = flow.FLOW['in'][0].get("partitions", [""])
+    return [
+        path
+        for partition in partitions
+        for path in input_folder.list_paths_in_partition(partition)
+    ]
