@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 2.3.4](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.3.4) - Patch release - 2025-09
+
+- Add partitions support for input folders
+
 ## [Version 2.3.3](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.3.3) - Patch release - 2024-04
 
 - Add support for .tif extension in OCR
