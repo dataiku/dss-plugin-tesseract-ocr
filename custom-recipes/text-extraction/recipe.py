@@ -4,7 +4,7 @@ import pandas as pd
 from time import perf_counter
 
 from dataiku.customrecipe import get_recipe_config
-from text_extraction_ocr_utils.recipes_io_utils import get_input_output
+from text_extraction_ocr_utils.recipes_io_utils import get_input_output, list_input_paths
 from text_extraction_ocr_utils import text_extraction_parameters
 from text_extraction_ocr_utils import Constants
 from text_extraction import extract_text_content
@@ -21,7 +21,7 @@ input_folder, output_dataset = get_input_output('folder', 'dataset')
 
 params = text_extraction_parameters(get_recipe_config())
 
-input_filenames = input_folder.list_paths_in_partition()
+input_filenames = list_input_paths(input_folder)
 total_files = len(input_filenames)
 
 rows = []

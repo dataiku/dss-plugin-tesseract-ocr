@@ -19,3 +19,7 @@ def get_input_output(input_type='dataset', output_type='dataset'):
         output_obj = dataiku.Dataset(output_names)
 
     return input_obj, output_obj
+
+def list_input_paths(input_folder):
+    partition = dataiku.get_flow_variables().get("DKU_SRC_label", "")
+    return input_folder.list_paths_in_partition(partition)
