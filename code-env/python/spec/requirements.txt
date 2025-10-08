@@ -1,14 +1,16 @@
+numpy==1.24.4  # avoids NumPy 2.x API breaks
+pandas==2.2.2
+scipy==1.10.1
+Pillow==9.5.0
+scikit-image==0.19.3  # Wheels available for 3.9/3.10; needed by deskew
+opencv-python==4.7.0.72
+pytesseract==0.3.13
 pypdfium2==4.17.0
-pytesseract==0.3.7
-Pillow==8.2.0
-matplotlib==3.3.4; python_version <= '3.9'
-matplotlib==3.7.1; python_version >= '3.10'
-opencv-python==4.5.1.48; python_version <= '3.9'
-opencv-python==4.7.0.72; python_version >= '3.10'
 deskew==0.10.33
-torch==1.11.0; python_version >= '3.10'
-torch==1.9.1; python_version <= '3.9'
-easyocr==1.7.0
-packaging==21.3
+torch==1.13.1
+torchvision==0.14.1
+easyocr==1.7.1  # Compatible with torch 1.13.x
 python-docx==0.8.11
-pypandoc==1.11
+pypandoc==1.12
+matplotlib==3.7.1
+packaging==24.0
