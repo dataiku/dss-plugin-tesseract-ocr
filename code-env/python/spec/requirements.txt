@@ -1,32 +1,17 @@
-# Scientific stack
 scipy==1.10.1; python_version < "3.12"
 scipy==1.13.1; python_version >= "3.12"
-
-# Imaging / OCR
-Pillow==9.5.0
-opencv-python==4.7.0.72
+Pillow==10.3.0
+opencv-python==4.8.1.78
 pytesseract==0.3.13
 pypdfium2==4.17.0
 deskew==0.10.33
-
-# Plotting / misc
 matplotlib==3.7.1
 packaging==24.0
-
-# scikit-image
 scikit-image==0.19.3; python_version < "3.12"
-scikit-image>=0.20,<0.21; python_version >= "3.12"
-
-# Deep learning / OCR backend
-torch==1.13.1; python_version < "3.12"
-torchvision==0.14.1; python_version < "3.12"
-
-torch==2.2.0; python_version >= "3.12"
-torchvision==0.17.0; python_version >= "3.12"
-
-# EasyOCR (works on all supported Python versions)
-easyocr==1.7.1
-
-# Document & text utilities
+scikit-image>=0.21,<0.22; python_version >= "3.12"
+torch==2.8.0
+torchvision==0.23.0
+easyocr==1.7.2
 python-docx==0.8.11
 pypandoc==1.12
+
