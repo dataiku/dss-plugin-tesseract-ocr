@@ -3,7 +3,7 @@ from PIL import Image
 from io import BytesIO
 import numpy as np
 import logging
-from text_extraction_ocr_utils.recipes_io_utils import get_input_output
+from text_extraction_ocr_utils.recipes_io_utils import get_input_output, list_input_paths
 from text_extraction_ocr_utils import image_processing_parameters
 from text_extraction_ocr_utils import Constants
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 input_folder, output_folder = get_input_output('folder', 'folder')
 
-input_filenames = input_folder.list_paths_in_partition()
+input_filenames = list_input_paths(input_folder)
 total_images = len(input_filenames)
 
 params = image_processing_parameters(get_recipe_config())
