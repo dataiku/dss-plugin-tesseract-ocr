@@ -1,7 +1,7 @@
-Pillow==10.3.0
-opencv-python==4.8.1.78
+Pillow<12.2
+opencv-python<4.14
 pytesseract==0.3.13
-pypdfium2==4.17.0
+pypdfium2<5.7
 deskew==0.10.33
 matplotlib==3.7.1
 packaging==24.0
