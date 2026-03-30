@@ -1,15 +1,15 @@
 {
     "id": "tesseract-ocr",
-    "version": "2.4.0",
+    "version": "2.4.1",
     "meta": {
         "label": "Text extraction and OCR",
+        "category": "NLP",
         "description": "Extract text from documents & images.",
         "author": "Dataiku",
         "icon": "icon-file-text-alt",
         "tags": [
             "NLP",
-            "Image",
-            "Computer Vision"
+            "Unstructured Data"
         ],
         "url": "https://www.dataiku.com/product/plugins/tesseract-ocr/",
         "licenseInfo": "Apache Software License"

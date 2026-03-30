@@ -1,5 +1,10 @@
 # Changelog
 
+## [Version 2.4.1](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.4.1) - Minor release - 2026-03
+
+- add support for Python 3.13 and 3.14
+- update used dependencies to newer versions overall
+
 ## [Version 2.4.0](https://github.com/dataiku/dss-plugin-tesseract-ocr/releases/tag/v2.4.0) - Minor release - 2025-10
 
 - Add partitions support for input folders
